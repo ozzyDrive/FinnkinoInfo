@@ -25,3 +25,17 @@ replay_pid*
 
 # Local config files
 local.properties
+.gradle/vcs-1/gc.properties
+.gradle/checksums/checksums.lock
+.gradle/buildOutputCleanup/outputFiles.bin
+.gradle/buildOutputCleanup/cache.properties
+.gradle/buildOutputCleanup/buildOutputCleanup.lock
+.gradle/7.2/gc.properties
+.gradle/7.2/fileHashes/resourceHashesCache.bin
+.gradle/7.2/fileHashes/fileHashes.lock
+.gradle/7.2/fileHashes/fileHashes.bin
+.gradle/7.2/fileChanges/last-build.bin
+.gradle/7.2/executionHistory/executionHistory.lock
+.gradle/7.2/executionHistory/executionHistory.bin
+.gradle/7.2/dependencies-accessors/gc.properties
+.gradle/7.2/dependencies-accessors/dependencies-accessors.lock
