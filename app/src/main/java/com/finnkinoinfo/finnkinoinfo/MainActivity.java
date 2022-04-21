@@ -42,9 +42,9 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
 
-                movieTheatre shit =(movieTheatre) movieTheatres.get(i);
+                movieTheatre selected =(movieTheatre) movieTheatres.get(i);
 
-                Toast.makeText(MainActivity.this, shit.getID(),Toast.LENGTH_SHORT).show();
+                Toast.makeText(MainActivity.this, selected.getID(),Toast.LENGTH_SHORT).show();
             }
 
             @Override
