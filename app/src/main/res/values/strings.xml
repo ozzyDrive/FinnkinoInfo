@@ -12,4 +12,6 @@
     <string name="app_title">"Finnkino Info"</string>
     <string name="date_hint">"pv.kk.vuosi"</string>
     <string name="url_string">"https://www.finnkino.fi/xml/TheatreAreas/"</string>
+    <string name="watched_movie_button">"Olen katsonut tämän elokuvan"</string>
+    <string name="movies_today">"Katsottavissa näissä paikoissa tänään:"</string>
 </resources>

@@ -56,9 +56,6 @@ public class MainActivity extends AppCompatActivity {
     }
 
 
-
-
-
     public ArrayList makeTheatres(){
         ArrayList<movieTheatre> movieTheatres = new ArrayList<movieTheatre>();
         try {
