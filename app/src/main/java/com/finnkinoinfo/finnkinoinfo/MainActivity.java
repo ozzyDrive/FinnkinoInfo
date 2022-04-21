@@ -99,7 +99,7 @@ public class MainActivity extends AppCompatActivity {
         }
 
         ArrayAdapter <String> adapter = new ArrayAdapter<>(this, R.layout.spinner_item, names);
-        adapter.setDropDownViewResource(R.layout.spinner_item);
+        adapter.setDropDownViewResource(R.layout.spinner_item2);
         dropDown.setAdapter(adapter);
         return dropDown;
 
