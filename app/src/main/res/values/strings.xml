@@ -11,4 +11,5 @@
     <string name="login_failed">"Login failed"</string>
     <string name="app_title">"Finnkino Info"</string>
     <string name="date_hint">"pv.kk.vuosi"</string>
+    <string name="url_string">"https://www.finnkino.fi/xml/TheatreAreas/"</string>
 </resources>
