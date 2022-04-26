@@ -67,7 +67,7 @@ public class FinnkinoApiClient {
             String eventsEndpoint = String.format(EVENTS_ENDPOINT + "?eventID=%d", Integer.parseInt(eventIdNode.getTextContent()));
             Document eventDocument = getDocument(eventsEndpoint);
 
-            Node eventNode = getFirstChildNode((Element) eventDocument.getElementsByTagName("Event").item(0), "Event");
+            Node eventNode = eventDocument.getElementsByTagName("Event").item(0);
             Node synopsisNode = getFirstChildNode((Element) eventNode, "Synopsis");
 
             Event event = new Event();
@@ -88,7 +88,8 @@ public class FinnkinoApiClient {
     }
 
     private Document getDocument(String endpoint) throws IOException, SAXException {
-        Document document = documentBuilder.parse(THEATRE_AREAS_ENDPOINT);
+        documentBuilder.reset();
+        Document document = documentBuilder.parse(endpoint);
         document.getDocumentElement().normalize();
         return document;
     }

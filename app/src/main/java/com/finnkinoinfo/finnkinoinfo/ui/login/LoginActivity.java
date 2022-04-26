@@ -44,26 +44,6 @@ public class LoginActivity extends AppCompatActivity {
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
-        Thread thread = new Thread(new Runnable() {
-            @Override
-            public void run() {
-                FinnkinoApiClient client = null;
-                try {
-                    client = new FinnkinoApiClient();
-                } catch (ParserConfigurationException e) {
-                    e.printStackTrace();
-                }
-                try {
-                    client.getSchedule(1041);
-                } catch (IOException e) {
-                    e.printStackTrace();
-                } catch (SAXException e) {
-                    e.printStackTrace();
-                }
-            }
-        });
-        thread.start();
-
         binding = ActivityLoginBinding.inflate(getLayoutInflater());
         setContentView(binding.getRoot());
 
