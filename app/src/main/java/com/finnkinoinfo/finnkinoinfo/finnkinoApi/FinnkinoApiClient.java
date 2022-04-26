@@ -29,7 +29,7 @@ public class FinnkinoApiClient {
     public ArrayList<Theatre> getTheatres() throws IOException, SAXException {
         ArrayList<Theatre> theatres = new ArrayList<Theatre>();
 
-        NodeList theatreAreas = getDocument(SCHEDULE_ENDPOINT).getElementsByTagName("TheatreArea");
+        NodeList theatreAreas = getDocument(THEATRE_AREAS_ENDPOINT).getElementsByTagName("TheatreArea");
         for (int index = 0; index < theatreAreas.getLength(); index++) {
             Element theatreNode = (Element) theatreAreas.item(index);
             Node idNode = getFirstChildNode(theatreNode, "ID");
@@ -63,6 +63,7 @@ public class FinnkinoApiClient {
             Node productionYearNode = getFirstChildNode(showNode, "ProductionYear");
             Node lengthInMinutesNode = getFirstChildNode(showNode, "LengthInMinutes");
             Node eventIdNode = getFirstChildNode(showNode, "EventID");
+            Node eventStartTime = getFirstChildNode(showNode, "dttmShowStart");
 
             String eventsEndpoint = String.format(EVENTS_ENDPOINT + "?eventID=%d", Integer.parseInt(eventIdNode.getTextContent()));
             Document eventDocument = getDocument(eventsEndpoint);
@@ -76,7 +77,7 @@ public class FinnkinoApiClient {
             event.productionYear = Integer.parseInt(productionYearNode.getTextContent());
             event.lengthInMinutes = Integer.parseInt(lengthInMinutesNode.getTextContent());
             event.description = synopsisNode.getTextContent();
-
+            event.time=getTimeStamp(eventStartTime);
             events.add(event);
         }
 
@@ -85,6 +86,9 @@ public class FinnkinoApiClient {
 
     public ArrayList<Event> getSchedule(int theatreId) throws IOException, SAXException {
         return getSchedule(theatreId, null, null);
+    }
+    public ArrayList<Event> getSchedule(int theatreId, Date date) throws IOException, SAXException {
+        return getSchedule(theatreId, date, null);
     }
 
     private Document getDocument(String endpoint) throws IOException, SAXException {
@@ -96,5 +100,12 @@ public class FinnkinoApiClient {
 
     private Node getFirstChildNode(Element element, String nodeName) {
         return element.getElementsByTagName(nodeName).item(0);
+    }
+
+    private String getTimeStamp(Node time){
+        Element element = (Element) time;
+        String[] parsedtime=(element.getTextContent()).split("T");
+        String result=parsedtime[1];
+        return result;
     }
 }
