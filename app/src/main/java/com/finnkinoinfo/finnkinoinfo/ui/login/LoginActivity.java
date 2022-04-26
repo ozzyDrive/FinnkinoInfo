@@ -23,9 +23,17 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.finnkinoinfo.finnkinoinfo.R;
+import com.finnkinoinfo.finnkinoinfo.finnkinoApi.FinnkinoApiClient;
 import com.finnkinoinfo.finnkinoinfo.ui.login.LoginViewModel;
 import com.finnkinoinfo.finnkinoinfo.ui.login.LoginViewModelFactory;
 import com.finnkinoinfo.finnkinoinfo.databinding.ActivityLoginBinding;
+
+import org.xml.sax.SAXException;
+
+import java.io.IOException;
+import java.util.Date;
+
+import javax.xml.parsers.ParserConfigurationException;
 
 public class LoginActivity extends AppCompatActivity {
 
