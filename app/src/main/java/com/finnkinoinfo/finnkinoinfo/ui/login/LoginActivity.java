@@ -23,9 +23,17 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.finnkinoinfo.finnkinoinfo.R;
+import com.finnkinoinfo.finnkinoinfo.finnkinoApi.FinnkinoApiClient;
 import com.finnkinoinfo.finnkinoinfo.ui.login.LoginViewModel;
 import com.finnkinoinfo.finnkinoinfo.ui.login.LoginViewModelFactory;
 import com.finnkinoinfo.finnkinoinfo.databinding.ActivityLoginBinding;
+
+import org.xml.sax.SAXException;
+
+import java.io.IOException;
+import java.util.Date;
+
+import javax.xml.parsers.ParserConfigurationException;
 
 public class LoginActivity extends AppCompatActivity {
 
@@ -35,6 +43,26 @@ public class LoginActivity extends AppCompatActivity {
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+
+        Thread thread = new Thread(new Runnable() {
+            @Override
+            public void run() {
+                FinnkinoApiClient client = null;
+                try {
+                    client = new FinnkinoApiClient();
+                } catch (ParserConfigurationException e) {
+                    e.printStackTrace();
+                }
+                try {
+                    client.getSchedule(1041);
+                } catch (IOException e) {
+                    e.printStackTrace();
+                } catch (SAXException e) {
+                    e.printStackTrace();
+                }
+            }
+        });
+        thread.start();
 
         binding = ActivityLoginBinding.inflate(getLayoutInflater());
         setContentView(binding.getRoot());
