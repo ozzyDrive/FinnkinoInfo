@@ -74,14 +74,14 @@ public class FinnkinoApiClient {
      * @throws SAXException
      */
     @RequiresApi(api = Build.VERSION_CODES.O)
-    public ArrayList<Event> getSchedule(int theatreId, LocalDate date, Optional<Integer> eventId) throws IOException, SAXException {
+    public ArrayList<Event> getSchedule(Optional<Integer> theatreId, LocalDate date, Optional<Integer> eventId) throws IOException, SAXException {
         ArrayList<Event> events = new ArrayList<>();
 
         String scheduleEndpoint = String.format(
-                SCHEDULE_ENDPOINT + "?area=%d&dt=%s&eventID=%s",
-                theatreId,
+                SCHEDULE_ENDPOINT + "?area=%s&dt=%s&eventID=%s",
+                theatreId.isPresent() ? theatreId : "",
                 date != null ? date.format(DateTimeFormatter.ofPattern("dd.MM.yyyy")) : "",
-                eventId != null ? eventId.toString() : "");
+                eventId.isPresent() ? eventId.toString() : "");
         Document schedule = getDocument(scheduleEndpoint);
 
         NodeList shows = schedule.getElementsByTagName("Show");
@@ -121,7 +121,7 @@ public class FinnkinoApiClient {
      * @throws SAXException
      */
     @RequiresApi(api = Build.VERSION_CODES.O)
-    public ArrayList<Event> getSchedule(int theatreId) throws IOException, SAXException {
+    public ArrayList<Event> getSchedule(Optional<Integer> theatreId) throws IOException, SAXException {
         return getSchedule(theatreId, null, null);
     }
 
