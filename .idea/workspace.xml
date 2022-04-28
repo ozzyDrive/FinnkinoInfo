@@ -26,6 +26,9 @@
       <change beforePath="$PROJECT_DIR$/app/src/main/res/layout/spinner_item.xml" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/res/layout/spinner_item.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/app/src/main/res/values/strings.xml" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/res/values/strings.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/app/src/main/res/values/themes.xml" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/res/values/themes.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/java/com/finnkinoinfo/finnkinoinfo/finnkinoApi/Event.java" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/com/finnkinoinfo/finnkinoinfo/finnkinoApi/Event.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/java/com/finnkinoinfo/finnkinoinfo/finnkinoApi/FinnkinoApiClient.java" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/com/finnkinoinfo/finnkinoinfo/finnkinoApi/FinnkinoApiClient.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -43,6 +46,7 @@
       <list>
         <option value="layoutResourceFile" />
         <option value="resourceFile" />
+        <option value="Class" />
       </list>
     </option>
   </component>
@@ -63,7 +67,9 @@
     </file-type-list>
   </component>
   <component name="ProjectId" id="27NW8Y8FQxym3tOxqEsPmdSIHsX" />
-  <component name="ProjectLevelVcsManager" settingsEditedManually="true" />
+  <component name="ProjectLevelVcsManager" settingsEditedManually="true">
+    <ConfirmationsSetting value="2" id="Add" />
+  </component>
   <component name="ProjectViewState">
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
@@ -80,6 +86,9 @@
     <property name="show.migrate.to.gradle.popup" value="false" />
   </component>
   <component name="RecentsManager">
+    <key name="CreateClassDialog.RecentsKey">
+      <recent name="com.finnkinoinfo.finnkinoinfo.finnkinoApi" />
+    </key>
     <key name="android.template.-104700902">
       <recent name="com.finnkinoinfo.finnkinoinfo" />
     </key>
@@ -172,5 +181,17 @@
     <ignored-roots>
       <path value="$PROJECT_DIR$/.." />
     </ignored-roots>
+  </component>
+  <component name="XDebuggerManager">
+    <pin-to-top-manager>
+      <pinned-members>
+        <PinnedItemInfo parentTag="org.apache.harmony.xml.dom.ElementImpl" memberName="shadow$_klass_" />
+      </pinned-members>
+    </pin-to-top-manager>
+    <watches-manager>
+      <configuration name="app">
+        <watch expression="schedule.getDocumentElement().getElementsByTagName(&quot;Show&quot;)" />
+      </configuration>
+    </watches-manager>
   </component>
 </project>
