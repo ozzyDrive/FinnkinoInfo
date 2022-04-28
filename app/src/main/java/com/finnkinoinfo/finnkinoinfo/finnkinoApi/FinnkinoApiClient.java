@@ -1,5 +1,9 @@
 package com.finnkinoinfo.finnkinoinfo.finnkinoApi;
 
+import android.os.Build;
+
+import androidx.annotation.RequiresApi;
+
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
 import org.w3c.dom.Node;
@@ -7,6 +11,8 @@ import org.w3c.dom.NodeList;
 import org.xml.sax.SAXException;
 
 import java.io.IOException;
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.Optional;
@@ -67,13 +73,14 @@ public class FinnkinoApiClient {
      * @throws IOException
      * @throws SAXException
      */
-    public ArrayList<Event> getSchedule(int theatreId, Date date, Optional<Integer> eventId) throws IOException, SAXException {
-        ArrayList<Event> events = new ArrayList<Event>();
+    @RequiresApi(api = Build.VERSION_CODES.O)
+    public ArrayList<Event> getSchedule(int theatreId, LocalDate date, Optional<Integer> eventId) throws IOException, SAXException {
+        ArrayList<Event> events = new ArrayList<>();
 
         String scheduleEndpoint = String.format(
-                SCHEDULE_ENDPOINT + "?area=%d&date=%s&eventID=%s",
+                SCHEDULE_ENDPOINT + "?area=%d&dt=%s&eventID=%s",
                 theatreId,
-                date != null ? date.toString() : "",
+                date != null ? date.format(DateTimeFormatter.ofPattern("dd.MM.yyyy")) : "",
                 eventId != null ? eventId.toString() : "");
         Document schedule = getDocument(scheduleEndpoint);
 
@@ -95,7 +102,7 @@ public class FinnkinoApiClient {
 
             Event event = new Event();
             event.name = titleNode.getTextContent();
-            event.ageRestriction = Integer.parseInt(ratingNode.getTextContent());
+            event.ageRestriction = ratingNode.getTextContent();
             event.productionYear = Integer.parseInt(productionYearNode.getTextContent());
             event.lengthInMinutes = Integer.parseInt(lengthInMinutesNode.getTextContent());
             event.description = synopsisNode.getTextContent();
@@ -113,6 +120,7 @@ public class FinnkinoApiClient {
      * @throws IOException
      * @throws SAXException
      */
+    @RequiresApi(api = Build.VERSION_CODES.O)
     public ArrayList<Event> getSchedule(int theatreId) throws IOException, SAXException {
         return getSchedule(theatreId, null, null);
     }
