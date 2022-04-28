@@ -5,7 +5,7 @@ public class Event {
     int lengthInMinutes;
     int productionYear;
     String description;
-    int ageRestriction;
+    String ageRestriction;
     String thumbnail;
 
     int getRating() {
