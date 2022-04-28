@@ -71,7 +71,7 @@
         android:background="@drawable/rectangle_border"
         android:ems="10"
         android:hint="@string/date_hint"
-        android:inputType="date"
+        android:inputType="text"
         android:paddingStart="40dp"
         android:textColor="@color/primary"
         android:textColorHint="@color/primary"

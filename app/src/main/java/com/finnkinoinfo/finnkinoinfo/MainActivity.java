@@ -1,10 +1,12 @@
 package com.finnkinoinfo.finnkinoinfo;
 
+import androidx.annotation.RequiresApi;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import android.content.Context;
+import android.os.Build;
 import android.os.Bundle;
 import android.os.StrictMode;
 import android.view.View;
@@ -25,6 +27,9 @@ import org.w3c.dom.NodeList;
 import org.xml.sax.SAXException;
 
 import java.io.IOException;
+import java.text.DateFormatSymbols;
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.Date;
 
@@ -61,7 +66,7 @@ public class MainActivity extends AppCompatActivity {
             e.printStackTrace();
         }
 
-        EditText date = (EditText) findViewById(R.id.input_date);
+        EditText inputDate = (EditText) findViewById(R.id.input_date);
 
         if (movieTheatres!=null){
             Spinner dropDown=dropDown_menu(movieTheatres);
@@ -69,22 +74,37 @@ public class MainActivity extends AppCompatActivity {
             Context ct = this;
             ArrayList<Theatre> finalMovieTheatres = movieTheatres;
             dropDown.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+            @RequiresApi(api = Build.VERSION_CODES.O)
             @Override
 
             public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
-                Date date = new Date();
+
                 try {
-                    RecyclerView recyclerView = findViewById(R.id.movieList);
-                    setuprecyclerView(finalMovieTheatres.get(i).getId(), date);
-                    recyclerView_adapter adapter = new recyclerView_adapter(ct, listOfEvents);
-                    recyclerView.setAdapter(adapter);
-                    recyclerView.setLayoutManager(new LinearLayoutManager(ct));
+                    String searchDate= inputDate.getText().toString();
+                    LocalDate date;
+                    if (i!=0){
+                        if (!searchDate.isEmpty()){
+                           date = LocalDate.parse(searchDate, DateTimeFormatter.ofPattern("dd.MM.yyyy"));
+                        }else {
+                            date= LocalDate.now();
+                        }
+
+                        RecyclerView recyclerView = findViewById(R.id.movieList);
+                        setuprecyclerView(finalMovieTheatres.get(i).getId(), date);
+                        recyclerView_adapter adapter = new recyclerView_adapter(ct, listOfEvents, new recyclerView_adapter.ItemClickListener() {
+                            @Override
+                            public void onItemClick(com.finnkinoinfo.finnkinoinfo.recyclerView details) {
+                                showToast(details.eventId);
+                            }
+                        });
+                        recyclerView.setAdapter(adapter);
+                        recyclerView.setLayoutManager(new LinearLayoutManager(ct));}
                 } catch (IOException e) {
                     e.printStackTrace();
                 } catch (SAXException e) {
                     e.printStackTrace();
                 }
-                //Toast.makeText(MainActivity.this, finalMovieTheatres.get(i).getId(),Toast.LENGTH_SHORT).show();
+
             }
 
             @Override
@@ -95,7 +115,9 @@ public class MainActivity extends AppCompatActivity {
         }
     }
 
-
+    private void showToast(int message){
+        System.out.println(message);
+    }
 
 
 
@@ -115,16 +137,14 @@ public class MainActivity extends AppCompatActivity {
         return dropDown;
 
     }
-    private void setuprecyclerView(int TheatreId, Date date) throws IOException, SAXException {
+    @RequiresApi(api = Build.VERSION_CODES.O)
+    private void setuprecyclerView(int TheatreId, LocalDate date) throws IOException, SAXException {
         System.out.println(TheatreId);
-
+        listOfEvents.clear();
         ArrayList <Event> events = finnkinoApiClient.getSchedule(TheatreId, date);
-        //String[] eventNames=null;
-        //String[] eventTimes=null;
-        //String[] eventHall = null;
-        for (int i =0; i<events.size(); i++){
 
-            listOfEvents.add(new recyclerView(events.get(i).getName(), events.get(i).getTime()));
+        for (int i =0; i<events.size(); i++){
+            listOfEvents.add(new recyclerView(events.get(i).getName(),events.get(i).getEventId(), events.get(i).getTime()));
         }
 
 

@@ -1,6 +1,7 @@
 package com.finnkinoinfo.finnkinoinfo;
 
 import android.content.Context;
+import android.telecom.Call;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -16,10 +17,12 @@ import java.util.ArrayList;
 public class recyclerView_adapter extends RecyclerView.Adapter<recyclerView_adapter.MyViewHolder> {
     Context context;
     ArrayList<recyclerView> recyclerView;
+    private ItemClickListener mItemListener;
 
-    public recyclerView_adapter(Context context, ArrayList<recyclerView> recyclerView){
+    public recyclerView_adapter(Context context, ArrayList<recyclerView> recyclerView, ItemClickListener itemClickListener){
         this.context=context;
         this.recyclerView=recyclerView;
+        this.mItemListener = itemClickListener;
     }
 
     @NonNull
@@ -35,12 +38,21 @@ public class recyclerView_adapter extends RecyclerView.Adapter<recyclerView_adap
     public void onBindViewHolder(@NonNull recyclerView_adapter.MyViewHolder holder, int position) {
         holder.movieName.setText(recyclerView.get(position).getName());
         holder.movieTime.setText(recyclerView.get(position).getTime());
+
+        holder.itemView.setOnClickListener(view ->{
+            mItemListener.onItemClick(recyclerView.get(position));
+        });
     }
 
     @Override
     public int getItemCount() {
         return recyclerView.size();
     }
+
+    public interface ItemClickListener{
+        void onItemClick(com.finnkinoinfo.finnkinoinfo.recyclerView details);
+    }
+
     public static class MyViewHolder extends RecyclerView.ViewHolder {
 
         TextView movieName, movieTime;

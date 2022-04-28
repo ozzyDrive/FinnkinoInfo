@@ -1,5 +1,9 @@
 package com.finnkinoinfo.finnkinoinfo.finnkinoApi;
 
+import android.os.Build;
+
+import androidx.annotation.RequiresApi;
+
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
 import org.w3c.dom.Node;
@@ -7,6 +11,8 @@ import org.w3c.dom.NodeList;
 import org.xml.sax.SAXException;
 
 import java.io.IOException;
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.Optional;
@@ -44,13 +50,14 @@ public class FinnkinoApiClient {
         return theatres;
     }
 
-    public ArrayList<Event> getSchedule(int theatreId, Date date, Optional<Integer> eventId) throws IOException, SAXException {
+    @RequiresApi(api = Build.VERSION_CODES.O)
+    public ArrayList<Event> getSchedule(int theatreId, LocalDate date, Optional<Integer> eventId) throws IOException, SAXException {
         ArrayList<Event> events = new ArrayList<Event>();
 
         String scheduleEndpoint = String.format(
-                SCHEDULE_ENDPOINT + "?area=%d&date=%s&eventID=%s",
+                SCHEDULE_ENDPOINT + "?area=%d&dt=%s&eventID=%s",
                 theatreId,
-                date != null ? date.toString() : "",
+                date != null ? date.format(DateTimeFormatter.ofPattern("dd.MM.yyyy")) : "",
                 eventId != null ? eventId.toString() : "");
         Document schedule = getDocument(scheduleEndpoint);
 
@@ -65,6 +72,7 @@ public class FinnkinoApiClient {
             Node eventIdNode = getFirstChildNode(showNode, "EventID");
             Node eventStartTime = getFirstChildNode(showNode, "dttmShowStart");
 
+
             String eventsEndpoint = String.format(EVENTS_ENDPOINT + "?eventID=%d", Integer.parseInt(eventIdNode.getTextContent()));
             Document eventDocument = getDocument(eventsEndpoint);
 
@@ -73,21 +81,24 @@ public class FinnkinoApiClient {
 
             Event event = new Event();
             event.name = titleNode.getTextContent();
-            event.ageRestriction = Integer.parseInt(ratingNode.getTextContent());
+            event.ageRestriction = ratingNode.getTextContent();
             event.productionYear = Integer.parseInt(productionYearNode.getTextContent());
             event.lengthInMinutes = Integer.parseInt(lengthInMinutesNode.getTextContent());
             event.description = synopsisNode.getTextContent();
             event.time=getTimeStamp(eventStartTime);
+            event.eventId= Integer.parseInt(eventIdNode.getTextContent());
             events.add(event);
         }
 
         return events;
     }
 
+    @RequiresApi(api = Build.VERSION_CODES.O)
     public ArrayList<Event> getSchedule(int theatreId) throws IOException, SAXException {
         return getSchedule(theatreId, null, null);
     }
-    public ArrayList<Event> getSchedule(int theatreId, Date date) throws IOException, SAXException {
+    @RequiresApi(api = Build.VERSION_CODES.O)
+    public ArrayList<Event> getSchedule(int theatreId, LocalDate date) throws IOException, SAXException {
         return getSchedule(theatreId, date, null);
     }
 
@@ -105,7 +116,8 @@ public class FinnkinoApiClient {
     private String getTimeStamp(Node time){
         Element element = (Element) time;
         String[] parsedtime=(element.getTextContent()).split("T");
-        String result=parsedtime[1];
+        String result=parsedtime[1].substring(0,5);
         return result;
     }
+
 }

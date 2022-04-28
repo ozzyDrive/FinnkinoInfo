@@ -2,22 +2,22 @@ package com.finnkinoinfo.finnkinoinfo;
 
 public class recyclerView {
     String name;
-    String hall;
+    int eventId;
     String time;
 
 
-    public recyclerView(String name/*, String hall*/, String time) {
+    public recyclerView(String name,int eventId, String time) {
         this.name = name;
-        this.hall = hall;
-        //this.time = time;
+        this.eventId = eventId;
+        this.time = time;
     }
 
     public String getName() {
         return name;
     }
 
-    public String getHall() {
-        return hall;
+    public int getId() {
+        return eventId;
     }
 
     public String getTime() {

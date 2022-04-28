@@ -5,9 +5,10 @@ public class Event {
     int lengthInMinutes;
     int productionYear;
     String description;
-    int ageRestriction;
+    String ageRestriction;
     String thumbnail;
     String time;
+    int eventId;
 
     int getRating() {
         return 0;
@@ -29,7 +30,7 @@ public class Event {
         return description;
     }
 
-    public int getAgeRestriction() {
+    public String getAgeRestriction() {
         return ageRestriction;
     }
 
@@ -39,5 +40,8 @@ public class Event {
 
     public String getTime() {
         return time;
+    }
+    public int getEventId(){
+        return eventId;
     }
 }
