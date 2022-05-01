@@ -94,6 +94,7 @@ public class FinnkinoApiClient {
             Node lengthInMinutesNode = getFirstChildNode(showNode, "LengthInMinutes");
             Node eventIdNode = getFirstChildNode(showNode, "EventID");
             Node eventStartTime = getFirstChildNode(showNode, "dttmShowStart");
+            Node eventPlaceNode = getFirstChildNode(showNode, "Theatre");
 
 
             String eventsEndpoint = String.format(EVENTS_ENDPOINT + "?eventID=%d", Integer.parseInt(eventIdNode.getTextContent()));
@@ -112,7 +113,7 @@ public class FinnkinoApiClient {
             event.time = getTimeStamp(eventStartTime);
             event.eventId = Integer.parseInt(eventIdNode.getTextContent());
             event.thumbnail = smallImagePortraitNode.getTextContent();
-
+            event.place= eventPlaceNode.getTextContent();
             events.add(event);
         }
 

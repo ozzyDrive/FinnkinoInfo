@@ -9,6 +9,7 @@ public class Event {
     String thumbnail;
     String time;
     int eventId;
+    String place;
 
     int getRating() {
         return 0;
@@ -43,5 +44,8 @@ public class Event {
     }
     public int getEventId(){
         return eventId;
+    }
+    public String getPlace(){
+        return place;
     }
 }

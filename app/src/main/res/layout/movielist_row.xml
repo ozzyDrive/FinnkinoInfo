@@ -25,9 +25,10 @@
                 android:id="@+id/movie_Title"
                 android:layout_width="364dp"
                 android:layout_height="wrap_content"
+                android:layout_marginStart="8dp"
                 android:textColor="@color/black"
-                android:textStyle="bold"
                 android:textSize="20sp"
+                android:textStyle="bold"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent" />
 
@@ -35,10 +36,11 @@
                 android:id="@+id/movie_Time"
                 android:layout_width="141dp"
                 android:layout_height="31dp"
+                android:layout_marginStart="16dp"
                 android:textColor="@color/black"
                 android:textStyle="bold"
-                app:layout_constraintTop_toBottomOf="@+id/movie_Title"
-                tools:layout_editor_absoluteX="0dp" />
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/movie_Title" />
 
         </androidx.constraintlayout.widget.ConstraintLayout>
     </androidx.cardview.widget.CardView>
