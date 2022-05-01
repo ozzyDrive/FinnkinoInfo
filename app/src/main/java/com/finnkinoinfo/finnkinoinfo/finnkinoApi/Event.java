@@ -12,6 +12,8 @@ public class Event {
     String description;
     String ageRestriction;
     String thumbnail;
+    String time;
+    int eventId;
 
     ImdbApiClient imdbApiClient;
 
@@ -27,5 +29,36 @@ public class Event {
     int getRating() throws IOException {
         assert id != null;
         return imdbApiClient.getRating(id).imDb;
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public int getLengthInMinutes() {
+        return lengthInMinutes;
+    }
+
+    public int getProductionYear() {
+        return productionYear;
+    }
+
+    public String getDescription() {
+        return description;
+    }
+
+    public String getAgeRestriction() {
+        return ageRestriction;
+    }
+
+    public String getThumbnail() {
+        return thumbnail;
+    }
+
+    public String getTime() {
+        return time;
+    }
+    public int getEventId(){
+        return eventId;
     }
 }

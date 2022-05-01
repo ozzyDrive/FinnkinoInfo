@@ -83,9 +83,9 @@ public class FinnkinoApiClient {
 
         String scheduleEndpoint = String.format(
                 SCHEDULE_ENDPOINT + "?area=%s&dt=%s&eventID=%s",
-                theatreId.isPresent() ? theatreId : "",
+                theatreId!=null ? theatreId.get() : "",
                 date != null ? date.format(DateTimeFormatter.ofPattern("dd.MM.yyyy")) : "",
-                eventId.isPresent() ? eventId.toString() : "");
+                eventId!=null ? eventId.get() : "");
         Document schedule = getDocument(scheduleEndpoint);
 
         NodeList shows = schedule.getElementsByTagName("Show");
@@ -97,6 +97,8 @@ public class FinnkinoApiClient {
             Node productionYearNode = getFirstChildNode(showNode, "ProductionYear");
             Node lengthInMinutesNode = getFirstChildNode(showNode, "LengthInMinutes");
             Node eventIdNode = getFirstChildNode(showNode, "EventID");
+            Node eventStartTime = getFirstChildNode(showNode, "dttmShowStart");
+
 
             String eventsEndpoint = String.format(EVENTS_ENDPOINT + "?eventID=%d", Integer.parseInt(eventIdNode.getTextContent()));
             Document eventDocument = getDocument(eventsEndpoint);
@@ -111,7 +113,8 @@ public class FinnkinoApiClient {
             event.productionYear = Integer.parseInt(productionYearNode.getTextContent());
             event.lengthInMinutes = Integer.parseInt(lengthInMinutesNode.getTextContent());
             event.description = synopsisNode.getTextContent();
-
+            event.time=getTimeStamp(eventStartTime);
+            event.eventId= Integer.parseInt(eventIdNode.getTextContent());
             events.add(event);
         }
 
@@ -129,6 +132,10 @@ public class FinnkinoApiClient {
     public ArrayList<Event> getSchedule(Optional<Integer> theatreId) throws IOException, SAXException {
         return getSchedule(theatreId, null, null);
     }
+    @RequiresApi(api = Build.VERSION_CODES.O)
+    public ArrayList<Event> getSchedule(Optional<Integer> theatreId, LocalDate date) throws IOException, SAXException {
+        return getSchedule(theatreId, date, null);
+    }
 
     private Document getDocument(String endpoint) throws IOException, SAXException {
         documentBuilder.reset();
@@ -140,4 +147,12 @@ public class FinnkinoApiClient {
     private Node getFirstChildNode(Element element, String nodeName) {
         return element.getElementsByTagName(nodeName).item(0);
     }
+
+    private String getTimeStamp(Node time){
+        Element element = (Element) time;
+        String[] parsedtime=(element.getTextContent()).split("T");
+        String result=parsedtime[1].substring(0,5);
+        return result;
+    }
+
 }
