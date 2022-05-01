@@ -48,17 +48,16 @@ public class MovieActivity extends AppCompatActivity {
         setContentView(R.layout.activity_movie);
         Bundle extras = getIntent().getExtras();
         int eventId = extras.getInt("EventID");
-        pictureView = findViewById(R.id.imageView);
+        pictureView = findViewById(R.id.pictureView);
         TextView movieName = findViewById(R.id.movie_name_textView);
 
         ArrayList<Event> events;
 
-
         try {
             events = finnkinoApiClient.getSchedule(null, null, java.util.Optional.of(eventId));
-
-
-
+            Event event = events.get(0);
+            Ion.with(pictureView)
+                    .load(event.getThumbnail());
         } catch (IOException e) {
             e.printStackTrace();
         } catch (SAXException e) {
