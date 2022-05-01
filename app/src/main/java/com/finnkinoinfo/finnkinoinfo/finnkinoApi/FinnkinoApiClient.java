@@ -100,7 +100,7 @@ public class FinnkinoApiClient {
             Document eventDocument = getDocument(eventsEndpoint);
 
             Node eventNode = eventDocument.getElementsByTagName("Event").item(0);
-            Node synopsisNode = getFirstChildNode((Element) eventNode, "Synopsis");
+            Node synopsisNode = getFirstChildNode((Element) eventNode, "ShortSynopsis");
             Node smallImagePortraitNode = (Node) ((Element) eventNode).getElementsByTagName("EventSmallImagePortrait").item(0);
 
             Event event = new Event();
