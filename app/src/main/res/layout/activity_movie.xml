@@ -23,6 +23,7 @@
 
     <TextView
         android:id="@+id/description_textView"
+        android:paddingleft="4dp"
         android:layout_width="345dp"
         android:layout_height="165dp"
         android:background="@drawable/rectangle_border"
