@@ -7,6 +7,7 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import android.content.Context;
+import android.content.SharedPreferences;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.drawable.Drawable;
@@ -48,7 +49,7 @@ import javax.xml.parsers.ParserConfigurationException;
 public class MovieActivity extends AppCompatActivity {
     ImageView pictureView;
     FinnkinoApiClient finnkinoApiClient;
-
+    SharedPreferences sp;
     {
         try {
             finnkinoApiClient = new FinnkinoApiClient();
@@ -69,6 +70,7 @@ public class MovieActivity extends AppCompatActivity {
         TextView description = findViewById(R.id.description_textView);
         RecyclerView recyclerView = findViewById(R.id.seeInPlaces);
         Button watchedMovie = findViewById(R.id.watched_Button);
+        sp=getSharedPreferences("MyUserPrefs", Context.MODE_PRIVATE);
 
         ArrayList<Event> events;
         Context ct =this;
@@ -90,18 +92,11 @@ public class MovieActivity extends AppCompatActivity {
             watchedMovie.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
-                    File file = Environment.getExternalStorageDirectory();
-                    File filename = new File(file, "yourfilename");
-                    try {
-                        FileOutputStream fos = new FileOutputStream(filename);
-                        fos.write(eventId);
-                        fos.close();
-                        System.out.println("Tallennettu listaan kait");
-                    } catch (FileNotFoundException e) {
-                        e.printStackTrace();
-                    } catch (IOException e) {
-                        e.printStackTrace();
-                    }
+
+                    SharedPreferences.Editor editor = sp.edit();
+                    editor.putInt(event.getName(), eventId);
+                    editor.commit();
+                    Toast.makeText(MovieActivity.this, "Information added", Toast.LENGTH_SHORT).show();
                 }
             });
 
