@@ -13,6 +13,7 @@ import android.os.StrictMode;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
+import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Spinner;
 import android.widget.Toast;
@@ -69,6 +70,7 @@ public class MainActivity extends AppCompatActivity {
         }
 
         EditText inputDate = (EditText) findViewById(R.id.input_date);
+        Button watchedlist = findViewById(R.id.watched_Button);
 
         if (movieTheatres!=null){
             Spinner dropDown=dropDown_menu(movieTheatres);
@@ -155,6 +157,10 @@ public class MainActivity extends AppCompatActivity {
     private void openMovieActivity( int eventId){
         Intent intent = new Intent(this, MovieActivity.class);
         intent.putExtra("EventID", eventId);
+        startActivity(intent);
+    }
+    public void onClick( View v){
+        Intent intent = new Intent(this, WatchedActivity.class);
         startActivity(intent);
     }
 }
