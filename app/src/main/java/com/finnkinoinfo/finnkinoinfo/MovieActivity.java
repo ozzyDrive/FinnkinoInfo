@@ -14,6 +14,7 @@ import android.media.Image;
 import android.os.AsyncTask;
 import android.os.Build;
 import android.os.Bundle;
+import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.TextView;
@@ -57,6 +58,8 @@ public class MovieActivity extends AppCompatActivity {
         TextView movieName = findViewById(R.id.movie_name_textView);
         TextView description = findViewById(R.id.description_textView);
         RecyclerView recyclerView = findViewById(R.id.seeInPlaces);
+        Button watchedMovie = findViewById(R.id.watched_Button);
+
         ArrayList<Event> events;
         Context ct =this;
         try {

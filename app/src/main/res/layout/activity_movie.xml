@@ -8,41 +8,41 @@
 
     <Button
         android:id="@+id/watched_Button"
-        android:layout_width="198dp"
-        android:layout_height="69dp"
-        android:layout_marginStart="28dp"
-        android:layout_marginTop="16dp"
+        android:layout_width="226dp"
+        android:layout_height="54dp"
+        android:layout_marginStart="15dp"
+        android:layout_marginTop="10dp"
+        android:layout_marginEnd="16dp"
         android:background="@color/primary"
         android:text="@string/watched_movie_button"
         android:textColor="@color/black"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toEndOf="@+id/pictureView"
-        app:layout_constraintTop_toBottomOf="@+id/ratingBar" />
+        app:layout_constraintTop_toBottomOf="@+id/movie_name_textView" />
 
     <TextView
         android:id="@+id/description_textView"
 
         android:layout_width="398dp"
         android:layout_height="wrap_content"
-        android:layout_marginTop="28dp"
+        android:layout_marginTop="26dp"
         android:background="@drawable/rectangle_border"
         android:padding="10dp"
         android:textColor="@color/primary"
         android:textSize="18dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/watched_Button" />
+        app:layout_constraintTop_toBottomOf="@+id/ratingBar" />
 
     <ImageView
         android:id="@+id/pictureView"
-        android:layout_width="133dp"
-        android:layout_height="225dp"
-        android:layout_marginStart="28dp"
-        app:layout_constraintBottom_toTopOf="@+id/description_textView"
+        android:layout_width="142dp"
+        android:layout_height="197dp"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="28dp"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.513"
         tools:srcCompat="@tools:sample/avatars" />
 
     <TextView
@@ -62,28 +62,29 @@
 
     <RatingBar
         android:id="@+id/ratingBar"
-        android:layout_width="232dp"
-        android:layout_height="59dp"
-        android:layout_marginStart="142dp"
-        android:layout_marginTop="12dp"
+        android:layout_width="237dp"
+        android:layout_height="60dp"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="10dp"
         android:background="@color/primary"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.0"
-        app:layout_constraintStart_toStartOf="@+id/pictureView"
-        app:layout_constraintTop_toBottomOf="@+id/movie_name_textView" />
+        app:layout_constraintStart_toEndOf="@+id/pictureView"
+        app:layout_constraintTop_toBottomOf="@+id/watched_Button" />
 
     <TextView
         android:id="@+id/movie_name_textView"
-        android:layout_width="217dp"
+        android:layout_width="226dp"
         android:layout_height="wrap_content"
-        android:layout_marginTop="36dp"
+        android:layout_marginStart="6dp"
+        android:layout_marginTop="28dp"
         android:background="@drawable/rectangle_border"
-        android:textColor="@color/primary"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.917"
-        app:layout_constraintStart_toStartOf="parent"
         android:padding="10dp"
+        android:textColor="@color/primary"
         android:textSize="18dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.38"
+        app:layout_constraintStart_toEndOf="@+id/pictureView"
         app:layout_constraintTop_toTopOf="parent" />
 
     <androidx.recyclerview.widget.RecyclerView
