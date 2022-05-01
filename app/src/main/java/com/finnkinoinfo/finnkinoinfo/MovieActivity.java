@@ -11,6 +11,7 @@ import android.media.Image;
 import android.os.AsyncTask;
 import android.os.Build;
 import android.os.Bundle;
+import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.TextView;
@@ -51,6 +52,7 @@ public class MovieActivity extends AppCompatActivity {
         pictureView = findViewById(R.id.pictureView);
         TextView movieName = findViewById(R.id.movie_name_textView);
         TextView description = findViewById(R.id.description_textView);
+        Button watchedMovie = findViewById(R.id.watched_Button);
 
         ArrayList<Event> events;
 
@@ -64,6 +66,7 @@ public class MovieActivity extends AppCompatActivity {
             movieName.setText(details);
 
             description.setText(event.getDescription());
+
 
         } catch (IOException e) {
             e.printStackTrace();
