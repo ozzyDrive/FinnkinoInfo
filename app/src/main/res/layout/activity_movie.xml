@@ -23,7 +23,8 @@
 
     <TextView
         android:id="@+id/description_textView"
-        android:layout_width="352dp"
+
+        android:layout_width="398dp"
         android:layout_height="wrap_content"
         android:layout_marginTop="26dp"
         android:background="@drawable/rectangle_border"
@@ -46,8 +47,8 @@
 
     <TextView
         android:id="@+id/movies_today_textView"
-        android:layout_width="352dp"
-        android:layout_height="216dp"
+        android:layout_width="398dp"
+        android:layout_height="256dp"
         android:layout_marginTop="19dp"
         android:background="@drawable/rectangle_border"
         android:padding="10dp"
@@ -87,14 +88,15 @@
         app:layout_constraintTop_toTopOf="parent" />
 
     <androidx.recyclerview.widget.RecyclerView
-        android:layout_width="339dp"
-        android:layout_height="181dp"
+        android:id="@+id/seeInPlaces"
+        android:layout_width="398dp"
+        android:layout_height="212dp"
         app:layout_constraintBottom_toBottomOf="@+id/movies_today_textView"
         app:layout_constraintEnd_toEndOf="@+id/movies_today_textView"
-        app:layout_constraintHorizontal_bias="0.538"
+        app:layout_constraintHorizontal_bias="0.444"
         app:layout_constraintStart_toStartOf="@+id/movies_today_textView"
         app:layout_constraintTop_toTopOf="@+id/movies_today_textView"
-        app:layout_constraintVertical_bias="0.771" />
+        app:layout_constraintVertical_bias="0.833" />
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>

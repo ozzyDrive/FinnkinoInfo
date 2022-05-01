@@ -3,7 +3,10 @@ package com.finnkinoinfo.finnkinoinfo;
 import androidx.annotation.RequiresApi;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.loader.content.AsyncTaskLoader;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 
+import android.content.Context;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.drawable.Drawable;
@@ -26,7 +29,9 @@ import java.io.IOException;
 
 import java.net.MalformedURLException;
 import java.net.URL;
+import java.time.LocalDate;
 import java.util.ArrayList;
+import java.util.Optional;
 
 import javax.xml.parsers.ParserConfigurationException;
 
@@ -54,20 +59,22 @@ public class MovieActivity extends AppCompatActivity {
         TextView description = findViewById(R.id.description_textView);
         Button watchedMovie = findViewById(R.id.watched_Button);
 
+        RecyclerView recyclerView = findViewById(R.id.seeInPlaces);
         ArrayList<Event> events;
-
+        Context ct =this;
         try {
             events = finnkinoApiClient.getSchedule(null, null, java.util.Optional.of(eventId));
             Event event = events.get(0);
             Ion.with(pictureView)
                     .load(event.getThumbnail());
-
+            ArrayList<recyclerView> listOfEvents=setuprecyclerView(events);
             String details = event.getName()+"\nPituus: "+event.getLengthInMinutes()+" minuuttia.\nJulkaisuvuosi: "+event.getProductionYear()+"\nIkäraja: "+event.getAgeRestriction();
             movieName.setText(details);
 
             description.setText(event.getDescription());
-
-
+            recyclerView_adapter adapter = new recyclerView_adapter(ct, listOfEvents);
+            recyclerView.setAdapter(adapter);
+            recyclerView.setLayoutManager(new LinearLayoutManager(ct));
         } catch (IOException e) {
             e.printStackTrace();
         } catch (SAXException e) {
@@ -75,5 +82,12 @@ public class MovieActivity extends AppCompatActivity {
         }
 
 
+    }
+    private ArrayList <recyclerView> setuprecyclerView(ArrayList <Event> events) throws IOException, SAXException {
+        ArrayList <recyclerView> listOfEvents=new ArrayList<recyclerView>();
+        for (int i =0; i<events.size(); i++){
+            listOfEvents.add(new recyclerView(events.get(i).getPlace(),events.get(i).getEventId(), events.get(i).getTime()));
+        }
+        return listOfEvents;
     }
 }
