@@ -14,10 +14,13 @@ import android.media.Image;
 import android.os.AsyncTask;
 import android.os.Build;
 import android.os.Bundle;
+import android.os.Environment;
+import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.finnkinoinfo.finnkinoinfo.finnkinoApi.Event;
 import com.finnkinoinfo.finnkinoinfo.finnkinoApi.FinnkinoApiClient;
@@ -25,12 +28,19 @@ import com.koushikdutta.ion.Ion;
 
 import org.xml.sax.SAXException;
 
+import java.io.BufferedWriter;
+import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
 import java.io.IOException;
 
+import java.io.ObjectOutputStream;
+import java.io.OutputStreamWriter;
 import java.net.MalformedURLException;
 import java.net.URL;
 import java.time.LocalDate;
 import java.util.ArrayList;
+import java.util.List;
 import java.util.Optional;
 
 import javax.xml.parsers.ParserConfigurationException;
@@ -75,6 +85,27 @@ public class MovieActivity extends AppCompatActivity {
             recyclerView_adapter adapter = new recyclerView_adapter(ct, listOfEvents);
             recyclerView.setAdapter(adapter);
             recyclerView.setLayoutManager(new LinearLayoutManager(ct));
+
+
+            watchedMovie.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    File file = Environment.getExternalStorageDirectory();
+                    File filename = new File(file, "yourfilename");
+                    try {
+                        FileOutputStream fos = new FileOutputStream(filename);
+                        fos.write(eventId);
+                        fos.close();
+                        System.out.println("Tallennettu listaan kait");
+                    } catch (FileNotFoundException e) {
+                        e.printStackTrace();
+                    } catch (IOException e) {
+                        e.printStackTrace();
+                    }
+                }
+            });
+
+
         } catch (IOException e) {
             e.printStackTrace();
         } catch (SAXException e) {
@@ -90,4 +121,6 @@ public class MovieActivity extends AppCompatActivity {
         }
         return listOfEvents;
     }
+
 }
+
