@@ -50,6 +50,7 @@ public class MovieActivity extends AppCompatActivity {
         int eventId = extras.getInt("EventID");
         pictureView = findViewById(R.id.pictureView);
         TextView movieName = findViewById(R.id.movie_name_textView);
+        TextView description = findViewById(R.id.description_textView);
 
         ArrayList<Event> events;
 
@@ -58,11 +59,18 @@ public class MovieActivity extends AppCompatActivity {
             Event event = events.get(0);
             Ion.with(pictureView)
                     .load(event.getThumbnail());
+
+            String details = event.getName()+"\nPituus: "+event.getLengthInMinutes()+" minuuttia.\nJulkaisuvuosi: "+event.getProductionYear()+"\nIkäraja: "+event.getAgeRestriction();
+            movieName.setText(details);
+
+            description.setText(event.getDescription());
+
         } catch (IOException e) {
             e.printStackTrace();
         } catch (SAXException e) {
             e.printStackTrace();
         }
+
 
     }
 }
