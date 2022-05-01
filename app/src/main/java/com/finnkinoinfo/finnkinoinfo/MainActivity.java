@@ -6,6 +6,7 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import android.content.Context;
+import android.content.Intent;
 import android.os.Build;
 import android.os.Bundle;
 import android.os.StrictMode;
@@ -32,6 +33,7 @@ import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.Date;
+import java.util.Optional;
 
 import javax.xml.parsers.DocumentBuilder;
 import javax.xml.parsers.DocumentBuilderFactory;
@@ -90,11 +92,12 @@ public class MainActivity extends AppCompatActivity {
                         }
 
                         RecyclerView recyclerView = findViewById(R.id.movieList);
-                        setuprecyclerView(finalMovieTheatres.get(i).getId(), date);
+                        setuprecyclerView(Optional.of(finalMovieTheatres.get(i).getId()), date);
                         recyclerView_adapter adapter = new recyclerView_adapter(ct, listOfEvents, new recyclerView_adapter.ItemClickListener() {
                             @Override
                             public void onItemClick(com.finnkinoinfo.finnkinoinfo.recyclerView details) {
                                 showToast(details.eventId);
+                                openMovieActivity(details.eventId);
                             }
                         });
                         recyclerView.setAdapter(adapter);
@@ -138,7 +141,7 @@ public class MainActivity extends AppCompatActivity {
 
     }
     @RequiresApi(api = Build.VERSION_CODES.O)
-    private void setuprecyclerView(int TheatreId, LocalDate date) throws IOException, SAXException {
+    private void setuprecyclerView(Optional<Integer> TheatreId, LocalDate date) throws IOException, SAXException {
         System.out.println(TheatreId);
         listOfEvents.clear();
         ArrayList <Event> events = finnkinoApiClient.getSchedule(TheatreId, date);
@@ -148,5 +151,10 @@ public class MainActivity extends AppCompatActivity {
         }
 
 
+    }
+    private void openMovieActivity( int eventId){
+        Intent intent = new Intent(this, MovieActivity.class);
+        intent.putExtra("EventID", eventId);
+        startActivity(intent);
     }
 }
