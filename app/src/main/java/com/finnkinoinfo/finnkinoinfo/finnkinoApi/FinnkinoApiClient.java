@@ -93,13 +93,13 @@ public class FinnkinoApiClient {
             Element showNode = (Element) shows.item(index);
 
             Node titleNode = getFirstChildNode(showNode, "Title");
+            Node originalTitleNode = getFirstChildNode(showNode, "OriginalTitle");
             Node ratingNode = getFirstChildNode(showNode, "Rating");
             Node productionYearNode = getFirstChildNode(showNode, "ProductionYear");
             Node lengthInMinutesNode = getFirstChildNode(showNode, "LengthInMinutes");
             Node eventIdNode = getFirstChildNode(showNode, "EventID");
             Node eventStartTime = getFirstChildNode(showNode, "dttmShowStart");
             Node eventPlaceNode = getFirstChildNode(showNode, "Theatre");
-
 
             String eventsEndpoint = String.format(EVENTS_ENDPOINT + "?eventID=%d", Integer.parseInt(eventIdNode.getTextContent()));
             Document eventDocument = getDocument(eventsEndpoint);
@@ -111,6 +111,7 @@ public class FinnkinoApiClient {
             Event event = new Event(imdbApiClient);
             event.id = eventIdNode.getTextContent();
             event.name = titleNode.getTextContent();
+            event.originalName = originalTitleNode.getTextContent();
             event.ageRestriction = ratingNode.getTextContent();
             event.productionYear = Integer.parseInt(productionYearNode.getTextContent());
             event.lengthInMinutes = Integer.parseInt(lengthInMinutesNode.getTextContent());
