@@ -14,5 +14,12 @@
     <string name="url_string">"https://www.finnkino.fi/xml/TheatreAreas/"</string>
     <string name="watched_movie_button">"Olen katsonut tämän elokuvan"</string>
     <string name="movies_today">"Katsottavissa näissä paikoissa tänään:"</string>
+    <string name="movies_watched">"Katsomasi elokuvat: "</string>
+    <string name="main_button">"Oma lista"</string>
+    <string name="list_empty">"Tyhjennä lista"</string>
+    <string name="added_list">"Lisätty listaan"</string>
+    <string name="removed_list">"poistettu listasta"</string>
+    <string name="on_list">"Listassasi"</string>
+    <string name="list_emptied">"Lista tyhjennetty"</string>
     <string name="date_toast">"Kirjoita päivämäärä muotoon dd.mm.yyyy"</string>
 </resources>
