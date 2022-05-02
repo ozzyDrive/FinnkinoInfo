@@ -27,7 +27,7 @@ public class Event {
      * @return integer value of rating
      * @throws IOException
      */
-    int getRating() throws IOException {
+    public int getRating() throws IOException {
         assert id != null;
         return imdbApiClient.getRating(id).imDb;
     }

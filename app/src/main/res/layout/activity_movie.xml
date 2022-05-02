@@ -67,6 +67,10 @@
         android:layout_marginStart="8dp"
         android:layout_marginTop="10dp"
         android:background="@color/primary"
+        android:numStars="5"
+        android:isIndicator="true"
+        android:stepSize="0.1"
+
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toEndOf="@+id/pictureView"

@@ -19,6 +19,7 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
+import android.widget.RatingBar;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -69,9 +70,11 @@ public class MovieActivity extends AppCompatActivity {
         TextView description = findViewById(R.id.description_textView);
         RecyclerView recyclerView = findViewById(R.id.seeInPlaces);
         Button watchedMovie = findViewById(R.id.watched_Button);
+        RatingBar ratingBar = findViewById(R.id.ratingBar);
 
         ArrayList<Event> events;
         Context ct =this;
+
         try {
             events = finnkinoApiClient.getSchedule(null, null, java.util.Optional.of(eventId));
             Event event = events.get(0);
@@ -86,6 +89,7 @@ public class MovieActivity extends AppCompatActivity {
             recyclerView.setAdapter(adapter);
             recyclerView.setLayoutManager(new LinearLayoutManager(ct));
 
+            ratingBar.setRating((float)event.getRating()/2);
 
             watchedMovie.setOnClickListener(new View.OnClickListener() {
                 @Override
