@@ -89,7 +89,7 @@ public class MovieActivity extends AppCompatActivity {
             recyclerView.setAdapter(adapter);
             recyclerView.setLayoutManager(new LinearLayoutManager(ct));
 
-            ratingBar.setRating((float)event.getRating()/2);
+            ratingBar.setRating((float) event.getRating()/2);
 
             watchedMovie.setOnClickListener(new View.OnClickListener() {
                 @Override
