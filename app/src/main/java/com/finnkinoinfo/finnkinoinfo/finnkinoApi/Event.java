@@ -9,6 +9,7 @@ import java.io.IOException;
 
 public class Event {
     String name;
+    String originalName;
     String id;
     int lengthInMinutes;
     int productionYear;
@@ -31,8 +32,8 @@ public class Event {
      * @throws IOException
      */
     public float getRating() throws IOException {
-        assert name != null;
-        ImdbSearchData searchData = imdbApiClient.searchMovie(name);
+        assert originalName != null;
+        ImdbSearchData searchData = imdbApiClient.searchMovie(originalName);
         if (searchData.results.size() > 0) {
             ImdbSearchResult searchResult = searchData.results.get(0);
             ImdbRatingData ratingData = imdbApiClient.getRating(searchResult.id);
