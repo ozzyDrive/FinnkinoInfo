@@ -105,14 +105,11 @@ public class MovieActivity extends AppCompatActivity {
                 }
             });
 
-
         } catch (IOException e) {
             e.printStackTrace();
         } catch (SAXException e) {
             e.printStackTrace();
         }
-
-
     }
     private ArrayList <recyclerView> setuprecyclerView(ArrayList <Event> events) throws IOException, SAXException {
         ArrayList <recyclerView> listOfEvents=new ArrayList<recyclerView>();
