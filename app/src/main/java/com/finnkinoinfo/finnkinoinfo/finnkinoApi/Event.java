@@ -1,6 +1,9 @@
 package com.finnkinoinfo.finnkinoinfo.finnkinoApi;
 
 import com.finnkinoinfo.finnkinoinfo.imdbApi.ImdbApiClient;
+import com.finnkinoinfo.finnkinoinfo.imdbApi.ratings.ImdbRatingData;
+import com.finnkinoinfo.finnkinoinfo.imdbApi.searchMovie.ImdbSearchData;
+import com.finnkinoinfo.finnkinoinfo.imdbApi.searchMovie.ImdbSearchResult;
 
 import java.io.IOException;
 
@@ -24,12 +27,18 @@ public class Event {
 
     /***
      * Fetches the movie's rating value from ImDb API
-     * @return integer value of rating
+     * @return float value of rating
      * @throws IOException
      */
-    public int getRating() throws IOException {
-        assert id != null;
-        return imdbApiClient.getRating(id).imDb;
+    public float getRating() throws IOException {
+        assert name != null;
+        ImdbSearchData searchData = imdbApiClient.searchMovie(name);
+        if (searchData.results.size() > 0) {
+            ImdbSearchResult searchResult = searchData.results.get(0);
+            ImdbRatingData ratingData = imdbApiClient.getRating(searchResult.id);
+            return ratingData.imDb;
+        }
+        return 0;
     }
 
     public String getName() {
