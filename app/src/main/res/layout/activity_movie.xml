@@ -68,7 +68,7 @@
         android:layout_marginTop="10dp"
         android:background="@color/transparency"
         android:progressTint="@color/primary"
-        android:progressBackgroundTint="@color/primary"
+        android:secondaryProgressTint="@color/primary"
         android:numStars="5"
         android:isIndicator="true"
         app:layout_constraintEnd_toEndOf="parent"
