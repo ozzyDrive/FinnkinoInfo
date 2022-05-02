@@ -1,14 +1,15 @@
 <resources>
     <string name="app_name">FinnkinoInfo</string>
     <!-- Strings related to login -->
-    <string name="prompt_email">Username</string>
-    <string name="prompt_password">Password</string>
-    <string name="action_sign_in">Sign in or register</string>
-    <string name="action_sign_in_short">Sign in</string>
-    <string name="welcome">"Welcome !"</string>
-    <string name="invalid_username">Not a valid username</string>
-    <string name="invalid_password">Password must be >5 characters</string>
-    <string name="login_failed">"Login failed"</string>
+    <string name="prompt_email">Käyttäjätunnus</string>
+    <string name="prompt_password">Salasana</string>
+    <string name="action_sign_in">Kirjaudu sisään ja rekisteröidy</string>
+    <string name="action_sign_in_short">Kirjaudu sisään</string>
+    <string name="welcome">"Tervetuloa "</string>
+    <string name="invalid_username">Käyttäjätunnus ei kelpaa</string>
+    <string name="invalid_password">Salasanan täytyy olla vähintään 12 merkkiä ja sisältää vähintään yhden numeron, erikoismerkin ja ison ja pienen kirjaimen</string>
+    <string name="login_failed">"Kirjautuminen epäonnistui"</string>
+    <string name="wrong_password">Väärä salasana</string>
     <string name="app_title">"Finnkino Info"</string>
     <string name="date_hint">"pv.kk.vuosi"</string>
     <string name="url_string">"https://www.finnkino.fi/xml/TheatreAreas/"</string>
