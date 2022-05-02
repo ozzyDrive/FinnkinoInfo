@@ -4,6 +4,8 @@ import android.os.Build;
 
 import androidx.annotation.RequiresApi;
 
+import com.finnkinoinfo.finnkinoinfo.imdbApi.ImdbApiClient;
+
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
 import org.w3c.dom.Node;
@@ -30,6 +32,7 @@ public class FinnkinoApiClient {
     final static String EVENTS_ENDPOINT = "https://www.finnkino.fi/xml/Events";
 
     DocumentBuilder documentBuilder;
+    ImdbApiClient imdbApiClient;
 
     /**
      *
@@ -37,6 +40,7 @@ public class FinnkinoApiClient {
      */
     public FinnkinoApiClient() throws ParserConfigurationException {
         documentBuilder = DocumentBuilderFactory.newInstance().newDocumentBuilder();
+        imdbApiClient = new ImdbApiClient();
     }
 
     /**
@@ -104,7 +108,8 @@ public class FinnkinoApiClient {
             Node synopsisNode = getFirstChildNode((Element) eventNode, "ShortSynopsis");
             Node smallImagePortraitNode = (Node) ((Element) eventNode).getElementsByTagName("EventSmallImagePortrait").item(0);
 
-            Event event = new Event();
+            Event event = new Event(imdbApiClient);
+            event.id = eventIdNode.getTextContent();
             event.name = titleNode.getTextContent();
             event.ageRestriction = ratingNode.getTextContent();
             event.productionYear = Integer.parseInt(productionYearNode.getTextContent());

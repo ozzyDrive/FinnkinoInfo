@@ -20,6 +20,7 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
+import android.widget.RatingBar;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -72,9 +73,11 @@ public class MovieActivity extends AppCompatActivity {
         RecyclerView recyclerView = findViewById(R.id.seeInPlaces);
         Button watchedMovie = findViewById(R.id.watched_Button);
         sp=getSharedPreferences("MyMovies", Context.MODE_PRIVATE);
+        RatingBar ratingBar = findViewById(R.id.ratingBar);
 
         ArrayList<Event> events;
         Context ct =this;
+
         try {
             events = finnkinoApiClient.getSchedule(null, null, java.util.Optional.of(eventId));
             Event event = events.get(0);
@@ -98,6 +101,7 @@ public class MovieActivity extends AppCompatActivity {
             recyclerView.setAdapter(adapter);
             recyclerView.setLayoutManager(new LinearLayoutManager(ct));
 
+            ratingBar.setRating((float) event.getRating()/2);
 
             watchedMovie.setOnClickListener(new View.OnClickListener() {
                 @Override
@@ -116,14 +120,11 @@ public class MovieActivity extends AppCompatActivity {
                 }
             });
 
-
         } catch (IOException e) {
             e.printStackTrace();
         } catch (SAXException e) {
             e.printStackTrace();
         }
-
-
     }
     private ArrayList <recyclerView> setuprecyclerView(ArrayList <Event> events) throws IOException, SAXException {
         ArrayList <recyclerView> listOfEvents=new ArrayList<recyclerView>();

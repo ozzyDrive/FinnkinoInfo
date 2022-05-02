@@ -21,4 +21,5 @@
     <string name="removed_list">"poistettu listasta"</string>
     <string name="on_list">"Listassasi"</string>
     <string name="list_emptied">"Lista tyhjennetty"</string>
+    <string name="date_toast">"Kirjoita päivämäärä muotoon dd.mm.yyyy"</string>
 </resources>
