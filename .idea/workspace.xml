@@ -17,6 +17,10 @@
       <change beforePath="$PROJECT_DIR$/.idea/misc.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/misc.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/app/src/main/java/com/finnkinoinfo/finnkinoinfo/MovieActivity.java" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/com/finnkinoinfo/finnkinoinfo/MovieActivity.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/java/com/finnkinoinfo/finnkinoinfo/WatchedActivity.java" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/com/finnkinoinfo/finnkinoinfo/WatchedActivity.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/res/layout/activity_main.xml" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/res/layout/activity_main.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/res/layout/activity_watched.xml" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/res/layout/activity_watched.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/res/values/strings.xml" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/res/values/strings.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/app/src/main/java/com/finnkinoinfo/finnkinoinfo/finnkinoApi/Event.java" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/com/finnkinoinfo/finnkinoinfo/finnkinoApi/Event.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/app/src/main/java/com/finnkinoinfo/finnkinoinfo/imdbApi/ratings/ImdbRatingData.java" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/com/finnkinoinfo/finnkinoinfo/imdbApi/ratings/ImdbRatingData.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/app/src/main/res/layout/activity_movie.xml" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/res/layout/activity_movie.xml" afterDir="false" />
@@ -87,6 +91,9 @@
       <recent name="com.finnkinoinfo.finnkinoinfo" />
     </key>
     <key name="android.template.-104700902">
+      <recent name="com.finnkinoinfo.finnkinoinfo" />
+    </key>
+    <key name="android.template.-567241715">
       <recent name="com.finnkinoinfo.finnkinoinfo" />
     </key>
   </component>

@@ -41,16 +41,6 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
-    <ImageView
-        android:id="@+id/imageView"
-        android:layout_width="72dp"
-        android:layout_height="60dp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toEndOf="@+id/app_title"
-        app:layout_constraintTop_toTopOf="parent"
-        app:srcCompat="@android:drawable/ic_menu_manage"
-        app:tint="#FFEB3B" />
-
     <Spinner
         android:id="@+id/dropDown"
         android:layout_width="170dp"
@@ -79,5 +69,19 @@
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toEndOf="@+id/dropDown"
         app:layout_constraintTop_toBottomOf="@+id/app_title" />
+
+    <Button
+        android:id="@+id/myList"
+        android:layout_width="84dp"
+        android:layout_height="48dp"
+        android:layout_marginStart="12dp"
+        android:layout_marginTop="4dp"
+        android:backgroundTint="@color/primary"
+        android:onClick="onClick"
+        android:text="@string/main_button"
+        android:textSize="12dp"
+        app:layout_constraintStart_toEndOf="@+id/app_title"
+        app:layout_constraintTop_toTopOf="parent"
+        tools:visibility="invisible" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
