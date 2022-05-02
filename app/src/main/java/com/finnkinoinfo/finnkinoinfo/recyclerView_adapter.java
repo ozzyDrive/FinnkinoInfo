@@ -25,6 +25,11 @@ public class recyclerView_adapter extends RecyclerView.Adapter<recyclerView_adap
         this.mItemListener = itemClickListener;
     }
 
+    public recyclerView_adapter(Context context, ArrayList<com.finnkinoinfo.finnkinoinfo.recyclerView> recyclerView) {
+        this.context=context;
+        this.recyclerView=recyclerView;
+    }
+
     @NonNull
     @Override
     public recyclerView_adapter.MyViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {

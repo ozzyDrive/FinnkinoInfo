@@ -83,9 +83,9 @@ public class FinnkinoApiClient {
 
         String scheduleEndpoint = String.format(
                 SCHEDULE_ENDPOINT + "?area=%s&dt=%s&eventID=%s",
-                theatreId!=null ? theatreId.get() : "",
+                theatreId != null ? theatreId.get() : "",
                 date != null ? date.format(DateTimeFormatter.ofPattern("dd.MM.yyyy")) : "",
-                eventId!=null ? eventId.get() : "");
+                eventId != null ? eventId.get() : "");
         Document schedule = getDocument(scheduleEndpoint);
 
         NodeList shows = schedule.getElementsByTagName("Show");
@@ -98,13 +98,15 @@ public class FinnkinoApiClient {
             Node lengthInMinutesNode = getFirstChildNode(showNode, "LengthInMinutes");
             Node eventIdNode = getFirstChildNode(showNode, "EventID");
             Node eventStartTime = getFirstChildNode(showNode, "dttmShowStart");
+            Node eventPlaceNode = getFirstChildNode(showNode, "Theatre");
 
 
             String eventsEndpoint = String.format(EVENTS_ENDPOINT + "?eventID=%d", Integer.parseInt(eventIdNode.getTextContent()));
             Document eventDocument = getDocument(eventsEndpoint);
 
             Node eventNode = eventDocument.getElementsByTagName("Event").item(0);
-            Node synopsisNode = getFirstChildNode((Element) eventNode, "Synopsis");
+            Node synopsisNode = getFirstChildNode((Element) eventNode, "ShortSynopsis");
+            Node smallImagePortraitNode = (Node) ((Element) eventNode).getElementsByTagName("EventSmallImagePortrait").item(0);
 
             Event event = new Event(imdbApiClient);
             event.id = eventIdNode.getTextContent();
@@ -113,8 +115,10 @@ public class FinnkinoApiClient {
             event.productionYear = Integer.parseInt(productionYearNode.getTextContent());
             event.lengthInMinutes = Integer.parseInt(lengthInMinutesNode.getTextContent());
             event.description = synopsisNode.getTextContent();
-            event.time=getTimeStamp(eventStartTime);
-            event.eventId= Integer.parseInt(eventIdNode.getTextContent());
+            event.time = getTimeStamp(eventStartTime);
+            event.eventId = Integer.parseInt(eventIdNode.getTextContent());
+            event.thumbnail = smallImagePortraitNode.getTextContent();
+            event.place= eventPlaceNode.getTextContent();
             events.add(event);
         }
 
