@@ -31,6 +31,7 @@ import java.io.IOException;
 import java.text.DateFormatSymbols;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
+import java.time.format.DateTimeParseException;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.Optional;
@@ -41,7 +42,6 @@ import javax.xml.parsers.ParserConfigurationException;
 
 public class MainActivity extends AppCompatActivity {
     FinnkinoApiClient finnkinoApiClient;
-
     {
         try {
             finnkinoApiClient = new FinnkinoApiClient();
@@ -59,7 +59,6 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
         ArrayList <Theatre> movieTheatres=null;
         try {
-
             movieTheatres = finnkinoApiClient.getTheatres();
 
         } catch (IOException e) {
@@ -80,15 +79,20 @@ public class MainActivity extends AppCompatActivity {
             @Override
 
             public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
-
                 try {
                     String searchDate= inputDate.getText().toString();
                     LocalDate date;
                     if (i!=0){
                         if (!searchDate.isEmpty()){
-                           date = LocalDate.parse(searchDate, DateTimeFormatter.ofPattern("dd.MM.yyyy"));
+                            try {
+                                date = LocalDate.parse(searchDate, DateTimeFormatter.ofPattern("dd.MM.yyyy"));
+                            } catch (DateTimeParseException e){
+                                Toast.makeText(ct, R.string.date_toast, Toast.LENGTH_SHORT).show();
+                                return;
+                            }
+
                         }else {
-                            date= LocalDate.now();
+                            date = LocalDate.now();
                         }
 
                         RecyclerView recyclerView = findViewById(R.id.movieList);
@@ -96,7 +100,6 @@ public class MainActivity extends AppCompatActivity {
                         recyclerView_adapter adapter = new recyclerView_adapter(ct, listOfEvents, new recyclerView_adapter.ItemClickListener() {
                             @Override
                             public void onItemClick(com.finnkinoinfo.finnkinoinfo.recyclerView details) {
-                                showToast(details.eventId);
                                 openMovieActivity(details.eventId);
                             }
                         });
@@ -107,7 +110,6 @@ public class MainActivity extends AppCompatActivity {
                 } catch (SAXException e) {
                     e.printStackTrace();
                 }
-
             }
 
             @Override
@@ -117,13 +119,6 @@ public class MainActivity extends AppCompatActivity {
         });
         }
     }
-
-    private void showToast(int message){
-        System.out.println(message);
-    }
-
-
-
 
 
     public Spinner dropDown_menu(ArrayList<Theatre> movieTheatres){
