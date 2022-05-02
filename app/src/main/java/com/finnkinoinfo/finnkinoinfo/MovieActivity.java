@@ -42,6 +42,7 @@ import java.net.URL;
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 import java.util.Optional;
 
 import javax.xml.parsers.ParserConfigurationException;
@@ -70,7 +71,7 @@ public class MovieActivity extends AppCompatActivity {
         TextView description = findViewById(R.id.description_textView);
         RecyclerView recyclerView = findViewById(R.id.seeInPlaces);
         Button watchedMovie = findViewById(R.id.watched_Button);
-        sp=getSharedPreferences("MyUserPrefs", Context.MODE_PRIVATE);
+        sp=getSharedPreferences("MyMovies", Context.MODE_PRIVATE);
 
         ArrayList<Event> events;
         Context ct =this;
@@ -82,9 +83,18 @@ public class MovieActivity extends AppCompatActivity {
             ArrayList<recyclerView> listOfEvents=setuprecyclerView(events);
             String details = event.getName()+"\nPituus: "+event.getLengthInMinutes()+" minuuttia.\nJulkaisuvuosi: "+event.getProductionYear()+"\nIkäraja: "+event.getAgeRestriction();
             movieName.setText(details);
+            if (checkMemory(sp, eventId)==true){
+                watchedMovie.setBackgroundColor(getResources().getColor(R.color.orange_dark));
+                watchedMovie.setText(R.string.on_list);
+            }
 
             description.setText(event.getDescription());
-            recyclerView_adapter adapter = new recyclerView_adapter(ct, listOfEvents);
+            recyclerView_adapter adapter = new recyclerView_adapter(ct, listOfEvents, new recyclerView_adapter.ItemClickListener() {
+                @Override
+                public void onItemClick(com.finnkinoinfo.finnkinoinfo.recyclerView details) {
+                    {}
+                }
+            });
             recyclerView.setAdapter(adapter);
             recyclerView.setLayoutManager(new LinearLayoutManager(ct));
 
@@ -92,11 +102,17 @@ public class MovieActivity extends AppCompatActivity {
             watchedMovie.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
-
-                    SharedPreferences.Editor editor = sp.edit();
-                    editor.putInt(event.getName(), eventId);
-                    editor.commit();
-                    Toast.makeText(MovieActivity.this, "Information added", Toast.LENGTH_SHORT).show();
+                    if(checkMemory(sp, eventId)==true){
+                        watchedMovie.setBackgroundColor(getResources().getColor(R.color.primary));
+                        sp.edit().remove(event.getName()).apply();
+                        watchedMovie.setText(R.string.watched_movie_button);
+                        Toast.makeText(MovieActivity.this, R.string.removed_list, Toast.LENGTH_SHORT).show();
+                    }else {
+                        watchedMovie.setBackgroundColor(getResources().getColor(R.color.orange_dark));
+                        sp.edit().putInt(event.getName(), eventId).apply();
+                        watchedMovie.setText(R.string.on_list);
+                        Toast.makeText(MovieActivity.this, R.string.added_list, Toast.LENGTH_SHORT).show();
+                    }
                 }
             });
 
@@ -116,6 +132,17 @@ public class MovieActivity extends AppCompatActivity {
         }
         return listOfEvents;
     }
+
+    private boolean checkMemory(SharedPreferences sp, int eventId){
+        Map<String,?> keys = sp.getAll();
+
+        for (Map.Entry<String,?> entry : keys.entrySet()){
+            if ((int)entry.getValue() == eventId) {
+                return true;
+            }
+        }
+        return false;
+    };
 
 }
 

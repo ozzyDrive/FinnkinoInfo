@@ -4,16 +4,43 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@color/black"
+    android:onClick="emptyList"
     tools:context=".WatchedActivity">
+
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/recycler_watched"
+        android:layout_width="398dp"
+        android:layout_height="580dp"
+        android:layout_marginTop="72dp"
+        android:background="@drawable/rectangle_border"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.461"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
 
     <TextView
         android:id="@+id/textView"
-        android:layout_width="258dp"
-        android:layout_height="104dp"
-        android:layout_marginTop="168dp"
-        android:text="TextView"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.496"
+        android:layout_width="301dp"
+        android:layout_height="46dp"
+        android:layout_marginStart="10dp"
+        android:layout_marginTop="24dp"
+        android:text="@string/movies_watched"
+        android:textColor="@color/primary"
+        android:textSize="25dp"
+        android:textStyle="bold"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
+
+    <Button
+        android:id="@+id/emptyList"
+        android:layout_width="158dp"
+        android:layout_height="56dp"
+        android:layout_marginTop="8dp"
+        android:backgroundTint="@color/primary"
+        android:onClick="clearList"
+        android:text="@string/list_empty"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/recycler_watched" />
 </androidx.constraintlayout.widget.ConstraintLayout>
