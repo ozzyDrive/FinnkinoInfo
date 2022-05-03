@@ -8,10 +8,15 @@ import android.util.Patterns;
 
 import com.finnkinoinfo.finnkinoinfo.data.LoginRepository;
 import com.finnkinoinfo.finnkinoinfo.data.Result;
+import com.finnkinoinfo.finnkinoinfo.data.WrongPasswordException;
 import com.finnkinoinfo.finnkinoinfo.data.model.LoggedInUser;
 import com.finnkinoinfo.finnkinoinfo.R;
 
+import java.util.regex.Pattern;
+
 public class LoginViewModel extends ViewModel {
+    // https://stackoverflow.com/questions/19605150/regex-for-password-must-contain-at-least-eight-characters-at-least-one-number-a
+    private final String PASSWORD_REGEX = "^(?=.*[a-z])(?=.*[A-Z])(?=.*\\d)(?=.*[@$!%*?&])[A-Za-z\\d@$!%*?&]{12,}$";
 
     private MutableLiveData<LoginFormState> loginFormState = new MutableLiveData<>();
     private MutableLiveData<LoginResult> loginResult = new MutableLiveData<>();
@@ -36,6 +41,12 @@ public class LoginViewModel extends ViewModel {
         if (result instanceof Result.Success) {
             LoggedInUser data = ((Result.Success<LoggedInUser>) result).getData();
             loginResult.setValue(new LoginResult(new LoggedInUserView(data.getDisplayName())));
+        } else if (result instanceof Result.Error) {
+            if (((Result.Error) result).getError() instanceof WrongPasswordException) {
+                loginResult.setValue(new LoginResult(R.string.wrong_password));
+            } else {
+                loginResult.setValue(new LoginResult(R.string.login_failed));
+            }
         } else {
             loginResult.setValue(new LoginResult(R.string.login_failed));
         }
@@ -65,6 +76,7 @@ public class LoginViewModel extends ViewModel {
 
     // A placeholder password validation check
     private boolean isPasswordValid(String password) {
-        return password != null && password.trim().length() > 5;
+        Pattern passwordPattern = Pattern.compile(PASSWORD_REGEX);
+        return password != null && passwordPattern.matcher(password).matches();
     }
 }

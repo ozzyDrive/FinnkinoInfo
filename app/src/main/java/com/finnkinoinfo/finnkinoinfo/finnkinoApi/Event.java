@@ -34,7 +34,7 @@ public class Event {
     public float getRating() throws IOException {
         assert originalName != null;
         ImdbSearchData searchData = imdbApiClient.searchMovie(originalName);
-        if (searchData.results.size() > 0) {
+        if (searchData != null && searchData.results != null && searchData.results.size() > 0) {
             ImdbSearchResult searchResult = searchData.results.get(0);
             ImdbRatingData ratingData = imdbApiClient.getRating(searchResult.id);
             return ratingData.imDb;
