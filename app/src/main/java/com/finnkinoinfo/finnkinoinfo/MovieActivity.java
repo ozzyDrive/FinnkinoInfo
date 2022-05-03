@@ -24,6 +24,9 @@ import android.widget.RatingBar;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.finnkinoinfo.finnkinoinfo.data.LoginDataSource;
+import com.finnkinoinfo.finnkinoinfo.data.LoginRepository;
+import com.finnkinoinfo.finnkinoinfo.data.model.LoggedInUser;
 import com.finnkinoinfo.finnkinoinfo.finnkinoApi.Event;
 import com.finnkinoinfo.finnkinoinfo.finnkinoApi.FinnkinoApiClient;
 import com.koushikdutta.ion.Ion;
@@ -67,12 +70,13 @@ public class MovieActivity extends AppCompatActivity {
         setContentView(R.layout.activity_movie);
         Bundle extras = getIntent().getExtras();
         int eventId = extras.getInt("EventID");
+        LoggedInUser user = LoginRepository.getInstance(null, this).getUser();
         pictureView = findViewById(R.id.pictureView);
         TextView movieName = findViewById(R.id.movie_name_textView);
         TextView description = findViewById(R.id.description_textView);
         RecyclerView recyclerView = findViewById(R.id.seeInPlaces);
         Button watchedMovie = findViewById(R.id.watched_Button);
-        sp=getSharedPreferences("MyMovies", Context.MODE_PRIVATE);
+        sp=getSharedPreferences("MyMovies" + user.getDisplayName(), MODE_PRIVATE);
         RatingBar ratingBar = findViewById(R.id.ratingBar);
 
         ArrayList<Event> events;
