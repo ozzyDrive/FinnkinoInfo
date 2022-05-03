@@ -2,9 +2,14 @@ package com.finnkinoinfo.finnkinoinfo.ui.login;
 
 import android.app.Activity;
 
+import androidx.annotation.ColorInt;
+import androidx.core.content.ContextCompat;
 import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProvider;
 
+import android.content.Context;
+import android.content.Intent;
+import android.graphics.Color;
 import android.os.Bundle;
 
 import androidx.annotation.Nullable;
@@ -22,6 +27,8 @@ import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.finnkinoinfo.finnkinoinfo.MainActivity;
+import com.finnkinoinfo.finnkinoinfo.MovieActivity;
 import com.finnkinoinfo.finnkinoinfo.R;
 import com.finnkinoinfo.finnkinoinfo.finnkinoApi.FinnkinoApiClient;
 import com.finnkinoinfo.finnkinoinfo.ui.login.LoginViewModel;
@@ -44,10 +51,12 @@ public class LoginActivity extends AppCompatActivity {
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
+        Context context = this;
+
         binding = ActivityLoginBinding.inflate(getLayoutInflater());
         setContentView(binding.getRoot());
 
-        loginViewModel = new ViewModelProvider(this, new LoginViewModelFactory())
+        loginViewModel = new ViewModelProvider(this, new LoginViewModelFactory(this))
                 .get(LoginViewModel.class);
 
         final EditText usernameEditText = binding.username;
@@ -61,7 +70,13 @@ public class LoginActivity extends AppCompatActivity {
                 if (loginFormState == null) {
                     return;
                 }
+
                 loginButton.setEnabled(loginFormState.isDataValid());
+                if (loginFormState.isDataValid()) {
+                    loginButton.setBackgroundColor(ContextCompat.getColor(context, R.color.primary));
+                } else {
+                    loginButton.setBackgroundColor(ContextCompat.getColor(context, R.color.gray));
+                }
                 if (loginFormState.getUsernameError() != null) {
                     usernameEditText.setError(getString(loginFormState.getUsernameError()));
                 }
@@ -83,11 +98,11 @@ public class LoginActivity extends AppCompatActivity {
                 }
                 if (loginResult.getSuccess() != null) {
                     updateUiWithUser(loginResult.getSuccess());
-                }
-                setResult(Activity.RESULT_OK);
+                    setResult(Activity.RESULT_OK);
 
-                //Complete and destroy login activity once successful
-                finish();
+                    //Complete and destroy login activity once successful
+                    finish();
+                }
             }
         });
 
@@ -134,8 +149,10 @@ public class LoginActivity extends AppCompatActivity {
 
     private void updateUiWithUser(LoggedInUserView model) {
         String welcome = getString(R.string.welcome) + model.getDisplayName();
-        // TODO : initiate successful logged in experience
         Toast.makeText(getApplicationContext(), welcome, Toast.LENGTH_LONG).show();
+        startActivity(
+                new Intent(this, MainActivity.class)
+        );
     }
 
     private void showLoginFailed(@StringRes Integer errorString) {
