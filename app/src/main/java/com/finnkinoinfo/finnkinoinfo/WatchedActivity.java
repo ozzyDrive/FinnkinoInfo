@@ -20,6 +20,8 @@ import java.util.Map;
 
 public class WatchedActivity extends AppCompatActivity {
     androidx.recyclerview.widget.RecyclerView recyclerWatched;
+    LoggedInUser user;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
 
@@ -29,7 +31,7 @@ public class WatchedActivity extends AppCompatActivity {
         recyclerWatched = findViewById(R.id.recycler_watched);
         Button clearList = findViewById(R.id.emptyList);
         ArrayList<RecyclerView> listOfEvents= new ArrayList<RecyclerView>();
-        LoggedInUser user = LoginRepository.getInstance(null, this).getUser();
+        user = LoginRepository.getInstance(null, this).getUser();
         SharedPreferences sp = getApplicationContext().getSharedPreferences("MyMovies"+user.getDisplayName(), Context.MODE_PRIVATE);
         Map<String,?> keys = sp.getAll();
         for (Map.Entry<String,?> entry : keys.entrySet()){
@@ -58,7 +60,7 @@ public class WatchedActivity extends AppCompatActivity {
      * Return void
      * Attached to a button on WatchedActivity*/
     public void clearList(View v){
-        SharedPreferences sp = getApplicationContext().getSharedPreferences("MyMovies", Context.MODE_PRIVATE);
+        SharedPreferences sp = getApplicationContext().getSharedPreferences("MyMovies" + user.getDisplayName(), Context.MODE_PRIVATE);
         sp.edit().clear().apply();
 
         Toast.makeText(WatchedActivity.this, R.string.list_emptied, Toast.LENGTH_SHORT).show();

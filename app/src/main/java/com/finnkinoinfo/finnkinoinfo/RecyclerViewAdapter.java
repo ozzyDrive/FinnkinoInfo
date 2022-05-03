@@ -13,7 +13,7 @@ import java.util.ArrayList;
 public class RecyclerViewAdapter extends androidx.recyclerview.widget.RecyclerView.Adapter<RecyclerViewAdapter.MyViewHolder> {
     Context context;
     ArrayList<RecyclerView> recyclerView;
-    private ItemClickListener mItemListener;
+    private final ItemClickListener mItemListener;
     /** makes adapter for RecyclerView
      * @param recyclerView given ArrayList of RecyclerView's
      * @param context Activitys Context

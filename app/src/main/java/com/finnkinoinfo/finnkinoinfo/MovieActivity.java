@@ -136,6 +136,6 @@ public class MovieActivity extends AppCompatActivity {
             }
         }
         return false;
-    };
+    }
 }
 
