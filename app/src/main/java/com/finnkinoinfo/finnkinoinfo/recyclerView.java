@@ -5,7 +5,7 @@ public class recyclerView {
     int eventId;
     String time;
 
-
+    /** Constructor makes new recyclerView object whi parameter given*/
     public recyclerView(String name,int eventId, String time) {
         this.name = name;
         this.eventId = eventId;
