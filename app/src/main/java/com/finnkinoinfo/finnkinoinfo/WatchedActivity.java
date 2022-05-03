@@ -23,14 +23,14 @@ import java.util.ArrayList;
 import java.util.Map;
 
 public class WatchedActivity extends AppCompatActivity {
-
+    RecyclerView recyclerWatched;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
 
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_watched);
         TextView text = findViewById(R.id.textView);
-        RecyclerView recyclerWatched = findViewById(R.id.recycler_watched);
+        recyclerWatched = findViewById(R.id.recycler_watched);
         Button clearList = findViewById(R.id.emptyList);
         ArrayList<recyclerView> listOfEvents= new ArrayList<recyclerView>();
         SharedPreferences sp = getApplicationContext().getSharedPreferences("MyMovies", Context.MODE_PRIVATE);

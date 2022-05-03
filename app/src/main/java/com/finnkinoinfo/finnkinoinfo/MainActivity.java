@@ -123,7 +123,7 @@ public class MainActivity extends AppCompatActivity {
     }
 
 
-    public Spinner dropDown_menu(ArrayList<Theatre> movieTheatres){
+    private Spinner dropDown_menu(ArrayList<Theatre> movieTheatres){
         Spinner dropDown = (Spinner) findViewById(R.id.dropDown);
         ArrayList <String> names = new ArrayList<String>();
         for (int i =0; i<movieTheatres.size(); i++){
