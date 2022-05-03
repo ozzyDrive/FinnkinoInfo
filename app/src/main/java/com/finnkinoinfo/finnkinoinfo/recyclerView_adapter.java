@@ -18,17 +18,17 @@ public class recyclerView_adapter extends RecyclerView.Adapter<recyclerView_adap
     Context context;
     ArrayList<recyclerView> recyclerView;
     private ItemClickListener mItemListener;
-
+    /** makes adapter for recyclerView
+     * @param recyclerView given ArrayList of recyclerView's
+     * @param context Activitys Context
+     * @param itemClickListener sets itemClickListener to recyclerview*/
     public recyclerView_adapter(Context context, ArrayList<recyclerView> recyclerView, ItemClickListener itemClickListener){
         this.context=context;
         this.recyclerView=recyclerView;
         this.mItemListener = itemClickListener;
     }
 
-    public recyclerView_adapter(Context context, ArrayList<com.finnkinoinfo.finnkinoinfo.recyclerView> recyclerView) {
-        this.context=context;
-        this.recyclerView=recyclerView;
-    }
+
 
     @NonNull
     @Override
@@ -38,7 +38,7 @@ public class recyclerView_adapter extends RecyclerView.Adapter<recyclerView_adap
 
         return new recyclerView_adapter.MyViewHolder(view);
     }
-
+    /** Makes row's under another and not on pile and clicklistener get's position of the clicked*/
     @Override
     public void onBindViewHolder(@NonNull recyclerView_adapter.MyViewHolder holder, int position) {
         holder.movieName.setText(recyclerView.get(position).getName());
@@ -53,11 +53,11 @@ public class recyclerView_adapter extends RecyclerView.Adapter<recyclerView_adap
     public int getItemCount() {
         return recyclerView.size();
     }
-
+    /**Sets function what happens when item is cLicked*/
     public interface ItemClickListener{
         void onItemClick(com.finnkinoinfo.finnkinoinfo.recyclerView details);
     }
-
+    /**Sets given values(Strings) to recyclerView_row element */
     public static class MyViewHolder extends RecyclerView.ViewHolder {
 
         TextView movieName, movieTime;
