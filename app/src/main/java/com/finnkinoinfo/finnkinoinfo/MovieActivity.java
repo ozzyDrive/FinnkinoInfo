@@ -70,13 +70,13 @@ public class MovieActivity extends AppCompatActivity {
         setContentView(R.layout.activity_movie);
         Bundle extras = getIntent().getExtras();
         int eventId = extras.getInt("EventID");
-
+        LoggedInUser user = LoginRepository.getInstance(null, this).getUser();
         pictureView = findViewById(R.id.pictureView);
         TextView movieName = findViewById(R.id.movie_name_textView);
         TextView description = findViewById(R.id.description_textView);
         RecyclerView recyclerView = findViewById(R.id.seeInPlaces);
         Button watchedMovie = findViewById(R.id.watched_Button);
-        sp=getSharedPreferences("MyMovies",MODE_PRIVATE);
+        sp=getSharedPreferences("MyMovies" + user.getDisplayName(), MODE_PRIVATE);
         RatingBar ratingBar = findViewById(R.id.ratingBar);
 
         ArrayList<Event> events;
