@@ -48,6 +48,11 @@ import java.util.Optional;
 
 import javax.xml.parsers.ParserConfigurationException;
 
+
+    /**
+
+     */
+
 public class MovieActivity extends AppCompatActivity {
     ImageView pictureView;
     FinnkinoApiClient finnkinoApiClient;
@@ -126,6 +131,8 @@ public class MovieActivity extends AppCompatActivity {
             e.printStackTrace();
         }
     }
+
+
     private ArrayList <recyclerView> setuprecyclerView(ArrayList <Event> events) throws IOException, SAXException {
         ArrayList <recyclerView> listOfEvents=new ArrayList<recyclerView>();
         for (int i =0; i<events.size(); i++){
@@ -134,9 +141,12 @@ public class MovieActivity extends AppCompatActivity {
         return listOfEvents;
     }
 
+
+    /** CheckMemory checks if the event is in the users own
+     * watched movies-list.
+     * Returns boolean.*/
     private boolean checkMemory(SharedPreferences sp, int eventId){
         Map<String,?> keys = sp.getAll();
-
         for (Map.Entry<String,?> entry : keys.entrySet()){
             if ((int)entry.getValue() == eventId) {
                 return true;
@@ -144,6 +154,5 @@ public class MovieActivity extends AppCompatActivity {
         }
         return false;
     };
-
 }
 
