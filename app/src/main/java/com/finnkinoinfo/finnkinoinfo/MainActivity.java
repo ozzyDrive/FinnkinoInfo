@@ -3,7 +3,6 @@ package com.finnkinoinfo.finnkinoinfo;
 import androidx.annotation.RequiresApi;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
-import androidx.recyclerview.widget.RecyclerView;
 
 import android.content.Context;
 import android.content.Intent;
@@ -13,7 +12,6 @@ import android.os.StrictMode;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
-import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Spinner;
 import android.widget.Toast;
@@ -22,23 +20,15 @@ import com.finnkinoinfo.finnkinoinfo.finnkinoApi.Event;
 import com.finnkinoinfo.finnkinoinfo.finnkinoApi.FinnkinoApiClient;
 import com.finnkinoinfo.finnkinoinfo.finnkinoApi.Theatre;
 
-import org.w3c.dom.Document;
-import org.w3c.dom.Element;
-import org.w3c.dom.Node;
-import org.w3c.dom.NodeList;
 import org.xml.sax.SAXException;
 
 import java.io.IOException;
-import java.text.DateFormatSymbols;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeParseException;
 import java.util.ArrayList;
-import java.util.Date;
 import java.util.Optional;
 
-import javax.xml.parsers.DocumentBuilder;
-import javax.xml.parsers.DocumentBuilderFactory;
 import javax.xml.parsers.ParserConfigurationException;
 /** makes finnkinoApiClient so it can be used trough out the class*/
 public class MainActivity extends AppCompatActivity {
@@ -50,7 +40,7 @@ public class MainActivity extends AppCompatActivity {
             e.printStackTrace();
         }
     }
-    ArrayList<recyclerView> listOfEvents = new ArrayList<>();
+    ArrayList<RecyclerView> listOfEvents = new ArrayList<>();
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -97,12 +87,12 @@ public class MainActivity extends AppCompatActivity {
                             date = LocalDate.now();
                         }
 
-                        RecyclerView recyclerView = findViewById(R.id.movieList);
+                        androidx.recyclerview.widget.RecyclerView recyclerView = findViewById(R.id.movieList);
                         setuprecyclerView(Optional.of(finalMovieTheatres.get(i).getId()), date);
-                        recyclerView_adapter adapter = new recyclerView_adapter(ct, listOfEvents, new recyclerView_adapter.ItemClickListener() {
+                        RecyclerViewAdapter adapter = new RecyclerViewAdapter(ct, listOfEvents, new RecyclerViewAdapter.ItemClickListener() {
                             @Override
                             /**From RecyclerView onItem click starts MovieActivity and sends eventId to new activity */
-                            public void onItemClick(com.finnkinoinfo.finnkinoinfo.recyclerView details) {
+                            public void onItemClick(RecyclerView details) {
                                 openMovieActivity(details.eventId);
                             }
                         });
@@ -141,7 +131,7 @@ public class MainActivity extends AppCompatActivity {
 
     }
     @RequiresApi(api = Build.VERSION_CODES.O)
-    /** Setups recyclerView when place is selected from dropdown
+    /** Setups RecyclerView when place is selected from dropdown
      * @param TheatreId used to get certain theatres events
      * @param date Used to get certain events on this date(this day if user hasn't given date)
      * Return Void*/
@@ -151,7 +141,7 @@ public class MainActivity extends AppCompatActivity {
         ArrayList <Event> events = finnkinoApiClient.getSchedule(TheatreId, date);
 
         for (int i =0; i<events.size(); i++){
-            listOfEvents.add(new recyclerView(events.get(i).getName(),events.get(i).getEventId(), events.get(i).getTime()));
+            listOfEvents.add(new RecyclerView(events.get(i).getName(),events.get(i).getEventId(), events.get(i).getTime()));
         }
 
 

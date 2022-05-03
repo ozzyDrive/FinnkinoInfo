@@ -1,12 +1,12 @@
 package com.finnkinoinfo.finnkinoinfo;
 
-public class recyclerView {
+public class RecyclerView {
     String name;
     int eventId;
     String time;
 
-    /** Constructor makes new recyclerView object whi parameter given*/
-    public recyclerView(String name,int eventId, String time) {
+    /** Constructor makes new RecyclerView object whi parameter given*/
+    public RecyclerView(String name, int eventId, String time) {
         this.name = name;
         this.eventId = eventId;
         this.time = time;

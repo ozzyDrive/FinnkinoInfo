@@ -1,28 +1,24 @@
 package com.finnkinoinfo.finnkinoinfo;
 
 import android.content.Context;
-import android.telecom.Call;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
-import androidx.recyclerview.widget.RecyclerView;
-
-import org.w3c.dom.Text;
 
 import java.util.ArrayList;
 
-public class recyclerView_adapter extends RecyclerView.Adapter<recyclerView_adapter.MyViewHolder> {
+public class RecyclerViewAdapter extends androidx.recyclerview.widget.RecyclerView.Adapter<RecyclerViewAdapter.MyViewHolder> {
     Context context;
-    ArrayList<recyclerView> recyclerView;
+    ArrayList<RecyclerView> recyclerView;
     private ItemClickListener mItemListener;
-    /** makes adapter for recyclerView
-     * @param recyclerView given ArrayList of recyclerView's
+    /** makes adapter for RecyclerView
+     * @param recyclerView given ArrayList of RecyclerView's
      * @param context Activitys Context
      * @param itemClickListener sets itemClickListener to recyclerview*/
-    public recyclerView_adapter(Context context, ArrayList<recyclerView> recyclerView, ItemClickListener itemClickListener){
+    public RecyclerViewAdapter(Context context, ArrayList<RecyclerView> recyclerView, ItemClickListener itemClickListener){
         this.context=context;
         this.recyclerView=recyclerView;
         this.mItemListener = itemClickListener;
@@ -32,15 +28,15 @@ public class recyclerView_adapter extends RecyclerView.Adapter<recyclerView_adap
 
     @NonNull
     @Override
-    public recyclerView_adapter.MyViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
+    public RecyclerViewAdapter.MyViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         LayoutInflater inflater = LayoutInflater.from(context);
         View view = inflater.inflate(R.layout.movielist_row,parent, false);
 
-        return new recyclerView_adapter.MyViewHolder(view);
+        return new RecyclerViewAdapter.MyViewHolder(view);
     }
     /** Makes row's under another and not on pile and clicklistener get's position of the clicked*/
     @Override
-    public void onBindViewHolder(@NonNull recyclerView_adapter.MyViewHolder holder, int position) {
+    public void onBindViewHolder(@NonNull RecyclerViewAdapter.MyViewHolder holder, int position) {
         holder.movieName.setText(recyclerView.get(position).getName());
         holder.movieTime.setText(recyclerView.get(position).getTime());
 
@@ -55,10 +51,10 @@ public class recyclerView_adapter extends RecyclerView.Adapter<recyclerView_adap
     }
     /**Sets function what happens when item is cLicked*/
     public interface ItemClickListener{
-        void onItemClick(com.finnkinoinfo.finnkinoinfo.recyclerView details);
+        void onItemClick(RecyclerView details);
     }
     /**Sets given values(Strings) to recyclerView_row element */
-    public static class MyViewHolder extends RecyclerView.ViewHolder {
+    public static class MyViewHolder extends androidx.recyclerview.widget.RecyclerView.ViewHolder {
 
         TextView movieName, movieTime;
         public MyViewHolder(@NonNull View itemView) {
