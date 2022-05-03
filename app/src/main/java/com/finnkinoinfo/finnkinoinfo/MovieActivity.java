@@ -2,29 +2,19 @@ package com.finnkinoinfo.finnkinoinfo;
 
 import androidx.annotation.RequiresApi;
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.loader.content.AsyncTaskLoader;
 import androidx.recyclerview.widget.LinearLayoutManager;
-import androidx.recyclerview.widget.RecyclerView;
 
 import android.content.Context;
 import android.content.SharedPreferences;
-import android.graphics.Bitmap;
-import android.graphics.BitmapFactory;
-import android.graphics.drawable.Drawable;
-import android.media.Image;
-import android.os.AsyncTask;
 import android.os.Build;
 import android.os.Bundle;
-import android.os.Environment;
 import android.view.View;
 import android.widget.Button;
-import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.RatingBar;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.finnkinoinfo.finnkinoinfo.data.LoginDataSource;
 import com.finnkinoinfo.finnkinoinfo.data.LoginRepository;
 import com.finnkinoinfo.finnkinoinfo.data.model.LoggedInUser;
 import com.finnkinoinfo.finnkinoinfo.finnkinoApi.Event;
@@ -33,21 +23,10 @@ import com.koushikdutta.ion.Ion;
 
 import org.xml.sax.SAXException;
 
-import java.io.BufferedWriter;
-import java.io.File;
-import java.io.FileNotFoundException;
-import java.io.FileOutputStream;
 import java.io.IOException;
 
-import java.io.ObjectOutputStream;
-import java.io.OutputStreamWriter;
-import java.net.MalformedURLException;
-import java.net.URL;
-import java.time.LocalDate;
 import java.util.ArrayList;
-import java.util.List;
 import java.util.Map;
-import java.util.Optional;
 
 import javax.xml.parsers.ParserConfigurationException;
 
@@ -79,7 +58,7 @@ public class MovieActivity extends AppCompatActivity {
         pictureView = findViewById(R.id.pictureView);
         TextView movieName = findViewById(R.id.movie_name_textView);
         TextView description = findViewById(R.id.description_textView);
-        RecyclerView recyclerView = findViewById(R.id.seeInPlaces);
+        androidx.recyclerview.widget.RecyclerView recyclerView = findViewById(R.id.seeInPlaces);
         Button watchedMovie = findViewById(R.id.watched_Button);
         sp=getSharedPreferences("MyMovies" + user.getDisplayName(), MODE_PRIVATE);
         RatingBar ratingBar = findViewById(R.id.ratingBar);
@@ -92,7 +71,7 @@ public class MovieActivity extends AppCompatActivity {
             Event event = events.get(0);
             Ion.with(pictureView)
                     .load(event.getThumbnail());
-            ArrayList<recyclerView> listOfEvents=setuprecyclerView(events);
+            ArrayList<RecyclerView> listOfEvents=setuprecyclerView(events);
             String details = event.getName()+"\nPituus: "+event.getLengthInMinutes()+" minuuttia.\nJulkaisuvuosi: "+event.getProductionYear()+"\nIkäraja: "+event.getAgeRestriction();
             movieName.setText(details);
             if (checkMemory(sp, eventId)==true){
@@ -101,9 +80,9 @@ public class MovieActivity extends AppCompatActivity {
             }
 
             description.setText(event.getDescription());
-            recyclerView_adapter adapter = new recyclerView_adapter(ct, listOfEvents, new recyclerView_adapter.ItemClickListener() {
+            RecyclerViewAdapter adapter = new RecyclerViewAdapter(ct, listOfEvents, new RecyclerViewAdapter.ItemClickListener() {
                 @Override
-                public void onItemClick(com.finnkinoinfo.finnkinoinfo.recyclerView details) {
+                public void onItemClick(RecyclerView details) {
                     {}
                 }
             });
@@ -137,10 +116,10 @@ public class MovieActivity extends AppCompatActivity {
     }
 
 
-    private ArrayList <recyclerView> setuprecyclerView(ArrayList <Event> events) throws IOException, SAXException {
-        ArrayList <recyclerView> listOfEvents=new ArrayList<recyclerView>();
+    private ArrayList <RecyclerView> setuprecyclerView(ArrayList <Event> events) throws IOException, SAXException {
+        ArrayList <RecyclerView> listOfEvents=new ArrayList<RecyclerView>();
         for (int i =0; i<events.size(); i++){
-            listOfEvents.add(new recyclerView(events.get(i).getPlace(),events.get(i).getEventId(), events.get(i).getTime()));
+            listOfEvents.add(new RecyclerView(events.get(i).getPlace(),events.get(i).getEventId(), events.get(i).getTime()));
         }
         return listOfEvents;
     }
