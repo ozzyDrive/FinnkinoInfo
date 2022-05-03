@@ -7,7 +7,7 @@
     <string name="action_sign_in_short">Kirjaudu sisään</string>
     <string name="welcome">"Tervetuloa "</string>
     <string name="invalid_username">Käyttäjätunnus ei kelpaa</string>
-    <string name="invalid_password">Salasanan täytyy olla vähintään 12 merkkiä ja sisältää vähintään yhden numeron, erikoismerkin ja ison ja pienen kirjaimen</string>
+    <string name="invalid_password">Salasanan täytyy olla vähintään 12 merkkiä ja sisältää vähintään yhden numeron, erikoismerkin sekä ison ja pienen kirjaimen</string>
     <string name="login_failed">"Kirjautuminen epäonnistui"</string>
     <string name="wrong_password">Väärä salasana</string>
     <string name="app_title">"Finnkino Info"</string>
