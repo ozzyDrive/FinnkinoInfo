@@ -13,6 +13,8 @@ import android.widget.Button;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.finnkinoinfo.finnkinoinfo.data.LoginRepository;
+import com.finnkinoinfo.finnkinoinfo.data.model.LoggedInUser;
 import com.finnkinoinfo.finnkinoinfo.finnkinoApi.Event;
 
 import org.w3c.dom.Text;
@@ -23,17 +25,18 @@ import java.util.ArrayList;
 import java.util.Map;
 
 public class WatchedActivity extends AppCompatActivity {
-
+    RecyclerView recyclerWatched;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
 
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_watched);
         TextView text = findViewById(R.id.textView);
-        RecyclerView recyclerWatched = findViewById(R.id.recycler_watched);
+        recyclerWatched = findViewById(R.id.recycler_watched);
         Button clearList = findViewById(R.id.emptyList);
         ArrayList<recyclerView> listOfEvents= new ArrayList<recyclerView>();
-        SharedPreferences sp = getApplicationContext().getSharedPreferences("MyMovies", Context.MODE_PRIVATE);
+        LoggedInUser user = LoginRepository.getInstance(null, this).getUser();
+        SharedPreferences sp = getApplicationContext().getSharedPreferences("MyMovies"+user.getDisplayName(), Context.MODE_PRIVATE);
         Map<String,?> keys = sp.getAll();
         for (Map.Entry<String,?> entry : keys.entrySet()){
             System.out.println(entry.getKey()+":"+entry.getValue());
@@ -44,6 +47,8 @@ public class WatchedActivity extends AppCompatActivity {
 
         recyclerView_adapter adapter = new recyclerView_adapter(this, listOfEvents, new recyclerView_adapter.ItemClickListener() {
             @Override
+            /**from recyclerView clicking starts MovieActivity with selected movies EventID
+             * Return void*/
             public void onItemClick(recyclerView details) {
                 Intent intent = new Intent(WatchedActivity.this, MovieActivity.class);
                 intent.putExtra("EventID", details.eventId);
@@ -55,6 +60,9 @@ public class WatchedActivity extends AppCompatActivity {
 
 
     }
+    /**Function clears watched movies list from internal memory
+     * Return void
+     * Attached to a button on WatchedActivity*/
     public void clearList(View v){
         SharedPreferences sp = getApplicationContext().getSharedPreferences("MyMovies", Context.MODE_PRIVATE);
         sp.edit().clear().apply();
@@ -62,6 +70,9 @@ public class WatchedActivity extends AppCompatActivity {
         Toast.makeText(WatchedActivity.this, R.string.list_emptied, Toast.LENGTH_SHORT).show();
         startActivity();
     }
+    /** Starts MainActivity
+     * Return void
+     * used when watched movies list is cleared*/
     private void startActivity(){
         Intent main =new Intent(WatchedActivity.this, MainActivity.class);
         startActivity(main);

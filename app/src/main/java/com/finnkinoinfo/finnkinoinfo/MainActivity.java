@@ -40,7 +40,7 @@ import java.util.Optional;
 import javax.xml.parsers.DocumentBuilder;
 import javax.xml.parsers.DocumentBuilderFactory;
 import javax.xml.parsers.ParserConfigurationException;
-
+/** makes finnkinoApiClient so it can be used trough out the class*/
 public class MainActivity extends AppCompatActivity {
     FinnkinoApiClient finnkinoApiClient;
     {
@@ -69,7 +69,7 @@ public class MainActivity extends AppCompatActivity {
         }
 
         EditText inputDate = (EditText) findViewById(R.id.input_date);
-        Button watchedlist = findViewById(R.id.watched_Button);
+
 
         if (movieTheatres!=null){
             Spinner dropDown=dropDown_menu(movieTheatres);
@@ -79,7 +79,7 @@ public class MainActivity extends AppCompatActivity {
             dropDown.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @RequiresApi(api = Build.VERSION_CODES.O)
             @Override
-
+            /*** onCreate makes main screen. onItemSelected takes placeID and search Events there today if date is not given*/
             public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
                 try {
                     String searchDate= inputDate.getText().toString();
@@ -101,6 +101,7 @@ public class MainActivity extends AppCompatActivity {
                         setuprecyclerView(Optional.of(finalMovieTheatres.get(i).getId()), date);
                         recyclerView_adapter adapter = new recyclerView_adapter(ct, listOfEvents, new recyclerView_adapter.ItemClickListener() {
                             @Override
+                            /**From RecyclerView onItem click starts MovieActivity and sends eventId to new activity */
                             public void onItemClick(com.finnkinoinfo.finnkinoinfo.recyclerView details) {
                                 openMovieActivity(details.eventId);
                             }
@@ -122,8 +123,10 @@ public class MainActivity extends AppCompatActivity {
         }
     }
 
-
-    public Spinner dropDown_menu(ArrayList<Theatre> movieTheatres){
+    /** Makes DropDown menu from theatres
+     * @param movieTheatres ArrayList of movietheatres and puts them to spinner
+     * @return Spinner spinner of theatres*/
+    private Spinner dropDown_menu(ArrayList<Theatre> movieTheatres){
         Spinner dropDown = (Spinner) findViewById(R.id.dropDown);
         ArrayList <String> names = new ArrayList<String>();
         for (int i =0; i<movieTheatres.size(); i++){
@@ -138,8 +141,12 @@ public class MainActivity extends AppCompatActivity {
 
     }
     @RequiresApi(api = Build.VERSION_CODES.O)
+    /** Setups recyclerView when place is selected from dropdown
+     * @param TheatreId used to get certain theatres events
+     * @param date Used to get certain events on this date(this day if user hasn't given date)
+     * Return Void*/
     private void setuprecyclerView(Optional<Integer> TheatreId, LocalDate date) throws IOException, SAXException {
-        System.out.println(TheatreId);
+
         listOfEvents.clear();
         ArrayList <Event> events = finnkinoApiClient.getSchedule(TheatreId, date);
 
@@ -149,11 +156,16 @@ public class MainActivity extends AppCompatActivity {
 
 
     }
+    /** Starts MovieActivity and sends EventID to new activity
+     * @param eventId Takes certain events ID number and sends it to MovieActivity
+     * Return void*/
     private void openMovieActivity( int eventId){
         Intent intent = new Intent(this, MovieActivity.class);
         intent.putExtra("EventID", eventId);
         startActivity(intent);
     }
+    /** on button click starts WaatchedActivity
+     * Return void*/
     public void onClick( View v){
         Intent intent = new Intent(this, WatchedActivity.class);
         startActivity(intent);
